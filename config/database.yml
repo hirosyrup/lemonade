@@ -47,8 +47,32 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+development:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: music_player_development
+  pool: 5
+  username: koalab
+  password: h6Qk7Xas
+  host: localhost
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: music_player_mysql_test
+  pool: 5
+  username: koalab
+  password: h6Qk7Xas
+  host: localhost
+
 production:
-  <<: *default
-  database: MusicPlayer_production
-  username: MusicPlayer
-  password: <%= ENV['MUSICPLAYER_DATABASE_PASSWORD'] %>
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: music_player_mysql_production
+  pool: 5
+  username: koalab
+  password: h6Qk7Xas
+  host: localhost
