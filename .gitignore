@@ -11,4 +11,8 @@
 /log/*
 !/log/.keep
 /tmp
-/public/songs
+/public/songs/public/packs
+/public/packs-test
+/node_modules
+yarn-debug.log*
+.yarn-integrity

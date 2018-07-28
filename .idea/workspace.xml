@@ -4,10 +4,13 @@
     <list default="true" id="70250b89-ac24-44ed-862a-86fade133387" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/MusicPlayer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MusicPlayer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/01f72eef-32ec-4732-b1ab-015d0f8fab0b.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/music_player_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/music_player_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/environments/development.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/development.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/environments/production.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environments/production.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -41,17 +44,6 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="music_player_development@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="music_player_development@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="music_player_development@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="music_player_development: schema" type="c314c289:MysqlImplModel$Schema" />
-      </path>
     </expand>
     <select />
   </component>
@@ -60,7 +52,7 @@
       <file leaf-file-name="database.yml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/database.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
+            <state relative-caret-position="840">
               <caret line="56" column="20" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="20" />
             </state>
           </provider>
@@ -75,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="music_player_controller.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="music_player_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/music_player_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+            <state relative-caret-position="300">
+              <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -114,26 +106,28 @@
       <file leaf-file-name="Gemfile" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gemfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+            <state relative-caret-position="270">
+              <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.erb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/music_player/index.html.erb">
+      <file leaf-file-name="application.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/javascript/packs/application.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="4" selection-start-column="4" selection-end-column="4" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.rb" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <file leaf-file-name="application.html.erb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="45" />
+            <state relative-caret-position="225">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
         </entry>
@@ -179,8 +173,9 @@
         <option value="$PROJECT_DIR$/app/views/music_player.html.erb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/app/controllers/resources/songs_controller.rb" />
-        <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/app/controllers/music_player_controller.rb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
       </list>
     </option>
   </component>
@@ -203,8 +198,13 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
+  </component>
   <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/package.json" />
+    </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
@@ -218,7 +218,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="RailsProjectView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -249,6 +248,26 @@
               <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
               <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="javascript" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="javascript" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="javascript" type="462c0819:PsiDirectoryNode" />
+              <item name="packs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -256,6 +275,13 @@
               <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MusicPlayer" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MusicPlayer" type="b2602c69:ProjectViewProjectNode" />
@@ -288,6 +314,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="RailsProjectView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -441,48 +468,36 @@
       <workItem from="1532617916831" duration="611000" />
       <workItem from="1532618569144" duration="191000" />
       <workItem from="1532779040181" duration="685000" />
+      <workItem from="1532790206497" duration="585000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10620000" />
+    <option name="totallyTimeSpent" value="11289000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3018598" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32729805" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.29301745" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3018598" />
-      <window_info anchor="bottom" id="Docker" order="7" weight="0.32917705" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.13733906" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32917705" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3990025" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29756796" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.3297568" />
+      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32729805" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32668328" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39972144" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32729805" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" visible="true" weight="0.3297568" />
       <window_info active="true" anchor="bottom" id="Messages" order="7" visible="true" weight="0.3286908" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39972144" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32729805" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32917705" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,6 +512,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/controllers/music_player_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="3" lean-forward="true" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Gemfile" />
     <entry file="file://$PROJECT_DIR$/Gemfile" />
     <entry file="file://$PROJECT_DIR$/Gemfile" />
@@ -562,13 +584,6 @@
     <entry file="file://$PROJECT_DIR$/db/schema.rb">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/assets/stylesheets/scaffolds.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -599,22 +614,10 @@
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/60634b84-524a-4442-b32d-61d239611001/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/songs/_form.html.erb">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/songs/show.json.jbuilder">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/songs/index.html.erb">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/pages/songs_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="7" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/songs/_form.html.erb" />
+    <entry file="file://$PROJECT_DIR$/app/views/songs/show.json.jbuilder" />
+    <entry file="file://$PROJECT_DIR$/app/views/songs/index.html.erb" />
+    <entry file="file://$PROJECT_DIR$/app/controllers/pages/songs_controller.rb" />
     <entry file="file://$PROJECT_DIR$/app/views/resources/songs/index.json.jbuilder">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -648,7 +651,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config/database.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="840">
           <caret line="56" column="20" selection-start-line="56" selection-start-column="12" selection-end-line="56" selection-end-column="20" />
         </state>
       </provider>
@@ -681,13 +684,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Gemfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.rbenv/versions/2.2.2/lib/ruby/gems/2.2.0/gems/taglib-ruby-0.7.1/lib/taglib/id3v2.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -711,8 +707,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/music_player_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="16" lean-forward="true" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        <state relative-caret-position="300">
+          <caret line="20" column="3" selection-start-line="20" selection-start-column="3" selection-end-line="20" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gemfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="15" selection-start-line="18" selection-start-column="15" selection-end-line="18" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/packs/application.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/layouts/application.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>

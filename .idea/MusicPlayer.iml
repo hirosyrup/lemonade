@@ -62,6 +62,7 @@
     <orderEntry type="library" scope="PROVIDED" name="mysql2 (v0.3.19, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="nokogiri (v1.8.4, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v1.6.10, rbenv: 2.2.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack-proxy (v0.6.4, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack-test (v0.6.3, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails (v4.2.0, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rails-deprecated_sanitizer (v1.0.3, rbenv: 2.2.2) [gem]" level="application" />
@@ -89,6 +90,7 @@
     <orderEntry type="library" scope="PROVIDED" name="tzinfo (v1.2.5, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uglifier (v4.1.16, rbenv: 2.2.2) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v2.3.0, rbenv: 2.2.2) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="webpacker (v3.5.5, rbenv: 2.2.2) [gem]" level="application" />
   </component>
   <component name="RModuleSettingsStorage">
     <LOAD_PATH number="0" />
