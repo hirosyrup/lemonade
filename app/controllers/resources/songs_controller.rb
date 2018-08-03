@@ -8,7 +8,10 @@ class Resources::SongsController < ApplicationController
   end
 
   def create
+    aggregation = Aggregations::Song.new
+    aggregation.save(params)
 
+    redirect_to music_player_path
   end
 
   def update
