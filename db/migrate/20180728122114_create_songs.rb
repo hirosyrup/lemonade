@@ -2,6 +2,7 @@ class CreateSongs < ActiveRecord::Migration
   def change
     create_table :songs do |t|
 
+      t.string :file, null: false
       t.string :title, default: ''
       t.string :album, default: ''
       t.string :artist, default: ''

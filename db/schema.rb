@@ -14,6 +14,7 @@
 ActiveRecord::Schema.define(version: 20180728122114) do
 
   create_table "songs", force: :cascade do |t|
+    t.string   "file",       limit: 255,              null: false
     t.string   "title",      limit: 255, default: ""
     t.string   "album",      limit: 255, default: ""
     t.string   "artist",     limit: 255, default: ""
