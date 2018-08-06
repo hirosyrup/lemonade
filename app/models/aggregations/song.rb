@@ -12,5 +12,6 @@ class Aggregations::Song
       end
     end
     song.save!
+    song
   end
 end

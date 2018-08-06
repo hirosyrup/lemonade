@@ -2,16 +2,14 @@ class Resources::SongsController < ApplicationController
   def index
     @songs = Song.all
 
-    respond_to do |format|
-      format.json
-    end
+    render json: @songs
   end
 
   def create
     aggregation = Aggregations::Song.new
-    aggregation.save(params)
+    @song = aggregation.save(params)
 
-    redirect_to music_player_path
+    render json: @song
   end
 
   def update
