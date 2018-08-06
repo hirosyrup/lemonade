@@ -49,6 +49,7 @@ end
 
 group :production do
 
-  gem 'ruby', '2.2.2'
+  source 'https://rubygems.org'
+  ruby '2.2.2'
 
 end
