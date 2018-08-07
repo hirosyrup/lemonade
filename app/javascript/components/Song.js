@@ -7,6 +7,21 @@ class Song extends React.Component {
     this.state = {
       songs: []
     }
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange = (e) => {
+    e.preventDefault();
+    let form = new FormData();
+    form.append('song',e.target.files[0]);
+
+    axios.post('resources/songs/create', {
+      body: form
+    })
+    .then((results) => {
+      console.log(results)
+      this.fetch();
+    });
   }
 
   render() {
@@ -15,6 +30,9 @@ class Song extends React.Component {
         <div className="board-row">
           {this.state.songs.length > 0 && this.state.songs[0].title}
           <button onClick={this.onclick.bind(this)}>テストボタン</button>
+
+          <label>選択</label>
+          <input type="file" name="song" onChange={this.handleChange} />
         </div>
       </React.Fragment>
     );
