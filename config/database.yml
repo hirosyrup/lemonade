@@ -75,4 +75,4 @@ production:
   pool: 5
   username: koalab
   password: h6Qk7Xas
-  host: localhost
+  host: koalab-music-player.herokuapp.com
