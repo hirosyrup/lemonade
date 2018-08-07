@@ -25,7 +25,7 @@ class Song extends React.Component {
   }
 
   fetch() {
-    axios.get('http://localhost:3000/resources/songs/index')
+    axios.get('resources/songs/index')
         .then((results) => {
           console.log(results)
           this.setState({songs: results.data})
