@@ -1,5 +1,5 @@
 import React from "react"
-import axios from 'axios'
+import axios from './AxiosDefault'
 
 class Song extends React.Component {
   constructor(props) {
@@ -13,11 +13,9 @@ class Song extends React.Component {
   handleChange = (e) => {
     e.preventDefault();
     let form = new FormData();
-    form.append('song',e.target.files[0]);
+    form.append('file',e.target.files[0]);
 
-    axios.post('resources/songs/create', {
-      body: form
-    })
+    axios.post('resources/songs/create', form)
     .then((results) => {
       console.log(results)
       this.fetch();
