@@ -10,6 +10,10 @@ class Song extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  componentDidMount() {
+    this.fetch();
+  }
+
   handleChange = (e) => {
     e.preventDefault();
     let form = new FormData();
@@ -33,17 +37,10 @@ class Song extends React.Component {
               })}
             </ul>
           </div>
-          <button onClick={this.onclick.bind(this)}>テストボタン</button>
-
-          <label>選択</label>
           <input type="file" name="song" onChange={this.handleChange} />
         </div>
       </React.Fragment>
     );
-  }
-
-  onclick() {
-    this.fetch();
   }
 
   fetch() {
