@@ -26,7 +26,13 @@ class Song extends React.Component {
     return (
       <React.Fragment>
         <div className="board-row">
-          {this.state.songs.length > 0 && this.state.songs[0].title}
+          <div className="scroll_box">
+            <ul>
+              {this.state.songs.map((data) => {
+                return <li>{data.title}</li>;
+              })}
+            </ul>
+          </div>
           <button onClick={this.onclick.bind(this)}>テストボタン</button>
 
           <label>選択</label>
