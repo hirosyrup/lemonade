@@ -29,18 +29,23 @@ class Song extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="board-row">
-          <div className="scroll_box">
+        <div className='board-row'>
+          <div className='scroll_box'>
             <ul>
               {this.state.songs.map((data) => {
-                return <li>{data.title}</li>;
+                return <li key={data.id}>{data.title}</li>;
               })}
             </ul>
           </div>
-          <input type="file" name="song" onChange={this.handleChange} />
+          <input type='file' name='song' style={{display:'none'}} onChange={this.handleChange} />
+          <input type='button' value='ファイル選択' onClick={this.handleClick} />
         </div>
       </React.Fragment>
     );
+  }
+
+  handleClick() {
+    document.getElementsByName("song")[0].click();
   }
 
   fetch() {
