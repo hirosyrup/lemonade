@@ -1,7 +1,7 @@
 import React from "react"
 import axios from './AxiosDefault'
 
-class Song extends React.Component {
+class Deck extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -109,4 +109,4 @@ class Song extends React.Component {
   }
 }
 
-export default Song
+export default Deck
