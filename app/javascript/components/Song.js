@@ -5,7 +5,8 @@ class Song extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      songs: []
+      songs: [],
+      indicator_display: 'none'
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -19,10 +20,12 @@ class Song extends React.Component {
     let form = new FormData();
     form.append('file',e.target.files[0]);
 
+    this.showIndicator();
     axios.post('resources/songs/create', form)
     .then((results) => {
       console.log(results)
       this.fetch();
+      this.hideIndicator();
     });
   }
 
@@ -38,7 +41,10 @@ class Song extends React.Component {
             </ul>
           </div>
           <input type='file' name='song' style={{display:'none'}} onChange={this.handleChange} />
-          <input type='button' value='ファイル選択' onClick={this.handleClick} />
+          <div>
+            <input type='button' value='ファイル選択' onClick={this.handleClick} />
+            <img src='assets/indicator.gif' name='indicator' style={{display:this.state.indicator_display}} />
+          </div>
         </div>
       </React.Fragment>
     );
@@ -52,11 +58,19 @@ class Song extends React.Component {
     axios.get('resources/songs/index')
         .then((results) => {
           console.log(results)
-          this.setState({songs: results.data})
+          this.setState({songs: results.data});
         })
         .catch((data) =>{
-          console.log(data)
+          console.log(data);
         })
+  }
+
+  showIndicator() {
+    this.setState({indicator_display: 'block'});
+  }
+
+  hideIndicator() {
+    this.setState({indicator_display: 'none'});
   }
 }
 
