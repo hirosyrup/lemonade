@@ -6,7 +6,8 @@ class Song extends React.Component {
     super(props)
     this.state = {
       songs: [],
-      indicator_display: 'none'
+      indicator_display: 'none',
+      layer: 0
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -36,7 +37,7 @@ class Song extends React.Component {
           <div className='scroll_box'>
             <ul>
               {this.state.songs.map((data) => {
-                return <li key={data.id}>{data.artist}</li>;
+                return <li key={this.listId(data)} onClick={() => this.handleListClick(this.listId(data))}>{this.listName(data)}</li>;
               })}
             </ul>
           </div>
@@ -50,10 +51,6 @@ class Song extends React.Component {
     );
   }
 
-  handleClick() {
-    document.getElementsByName("song")[0].click();
-  }
-
   fetch() {
     axios.get('music_player/songs')
         .then((results) => {
@@ -65,12 +62,50 @@ class Song extends React.Component {
         })
   }
 
+  listId(data) {
+    switch (this.state.layer) {
+      case 0:
+        return data[0][0].id;
+      case 1:
+        return data[0].id;
+      case 2:
+        return data.id;
+    }
+  }
+
+  listName(data) {
+    switch (this.state.layer) {
+      case 0:
+        return data[0][0].artist;
+      case 1:
+        return data[0].album;
+      case 2:
+        return data.title;
+    }
+  }
+
   showIndicator() {
     this.setState({indicator_display: 'block'});
   }
 
   hideIndicator() {
     this.setState({indicator_display: 'none'});
+  }
+
+  handleClick() {
+    document.getElementsByName("song")[0].click();
+  }
+
+  handleListClick(itemId) {
+    var nextDatas = this.state.songs.find((song) => {return this.listId(song) === itemId})
+    if (nextDatas) {
+      this.setState(
+          {
+            songs: nextDatas,
+            layer: this.state.layer + 1,
+          }
+      );
+    }
   }
 }
 
