@@ -1,5 +1,11 @@
 class MusicPlayerController < ApplicationController
   def index
-    @song = Song.new(file: '')
+  end
+
+  def songs
+    songs = Song.all
+    @songs = songs.group(:artist)
+
+    render json: @songs
   end
 end

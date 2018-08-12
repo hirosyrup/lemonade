@@ -36,7 +36,7 @@ class Song extends React.Component {
           <div className='scroll_box'>
             <ul>
               {this.state.songs.map((data) => {
-                return <li key={data.id}>{data.title}</li>;
+                return <li key={data.id}>{data.artist}</li>;
               })}
             </ul>
           </div>
@@ -55,7 +55,7 @@ class Song extends React.Component {
   }
 
   fetch() {
-    axios.get('resources/songs/index')
+    axios.get('music_player/songs')
         .then((results) => {
           console.log(results)
           this.setState({songs: results.data});
