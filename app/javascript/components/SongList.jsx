@@ -21,6 +21,10 @@ class SongList extends React.Component {
     this.fetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.fetch();
+  }
+
   render() {
     return (
         <React.Fragment>

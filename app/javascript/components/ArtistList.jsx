@@ -18,6 +18,12 @@ class ArtistList extends React.Component {
     this.fetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.selected_artist) {
+      this.fetch();
+    }
+  }
+
   render() {
     return (
         <React.Fragment>

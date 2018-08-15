@@ -22,6 +22,12 @@ class AlbumList extends React.Component {
     this.fetch();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.selected_album) {
+      this.fetch();
+    }
+  }
+
   render() {
     return (
         <React.Fragment>
