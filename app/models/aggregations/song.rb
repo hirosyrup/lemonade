@@ -25,8 +25,8 @@ class Aggregations::Song
   #
   def self.where_by(song_search_option)
     Song.all
-    .tap { |s| break s.artist == song_search_option.artist if song_search_option.artist.present? }
-    .tap { |s| break s.album == song_search_option.album if song_search_option.album.present? }
-    .tap { |s| break s.group(song_search_option.group_key) if song_search_option.group_key.present? }
+    .tap { |ss| break ss.where(artist: song_search_option.artist) if song_search_option.artist.present? }
+    .tap { |ss| break ss.where(album: song_search_option.album) if song_search_option.album.present? }
+    .tap { |ss| break ss.group(song_search_option.group_key) if song_search_option.group_key.present? }
   end
 end

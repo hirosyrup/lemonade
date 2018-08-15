@@ -2,14 +2,17 @@ import React from "react"
 import axios from "./AxiosDefault";
 import List from './List'
 import ListData from '../data/ListData'
-import AlbumList from "./AlbumList";
 
-class ArtistList extends React.Component {
+class SongList extends React.Component {
+  static propTypes = {
+    artist: PropTypes.string.isRequired,
+    album: PropTypes.string.isRequired,
+  };
+
   constructor(props) {
     super(props)
     this.state = {
       songs: [],
-      selected_artist: null,
     }
     this.bindDidClickRow = this.didClickRow.bind(this);
   }
@@ -21,23 +24,16 @@ class ArtistList extends React.Component {
   render() {
     return (
         <React.Fragment>
-          {this.renderingList()}
+          <List datas={this.createListData()} didClickRow={this.bindDidClickRow} />
         </React.Fragment>
     );
-  }
-
-  renderingList() {
-    if (this.state.selected_artist) {
-      return <AlbumList artist={this.state.selected_artist}/>;
-    } else {
-      return <List datas={this.createListData()} didClickRow={this.bindDidClickRow} />;
-    }
   }
 
   fetch() {
     axios.get('music_player/songs', {
       params: {
-        group_key: 'artist'
+        artist: this.props.artist,
+        album: this.props.album
       }
     })
         .then((results) => {
@@ -50,12 +46,11 @@ class ArtistList extends React.Component {
   }
 
   createListData() {
-    return this.state.songs.map(s => new ListData(s.id, s.artist));
+    return this.state.songs.map(s => new ListData(s.id, s.title));
   }
 
   didClickRow(listData) {
-    this.setState({selected_artist: listData.name});
   }
 }
 
-export default ArtistList
+export default SongList
