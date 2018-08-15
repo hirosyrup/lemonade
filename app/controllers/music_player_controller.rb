@@ -4,10 +4,7 @@ class MusicPlayerController < ApplicationController
 
   def songs
     @songs = Song.all
-    @songs = @songs.group_by{ |s| s.artist }.values
-    @songs = @songs.map do |s|
-      s.group_by { |s_c| s_c.album }.values
-    end
+    @songs = @songs.group(:artist)
 
     render json: @songs
   end

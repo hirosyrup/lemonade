@@ -1,5 +1,7 @@
 import React from "react"
 import axios from './AxiosDefault'
+import List from './List'
+import ListData from '../data/ListData'
 
 class Deck extends React.Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class Deck extends React.Component {
       indicator_display: 'none',
       layer: 0
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.bindHandleChange = this.handleChange.bind(this);
+    this.bindDidClickRow = this.didClickRow.bind(this);
   }
 
   componentDidMount() {
@@ -35,13 +38,9 @@ class Deck extends React.Component {
       <React.Fragment>
         <div className='board-row'>
           <div className='scroll_box'>
-            <ul>
-              {this.state.songs.map((data) => {
-                return <li key={this.listId(data)} onClick={() => this.handleListClick(this.listId(data))}>{this.listName(data)}</li>;
-              })}
-            </ul>
+            <List datas={this.createListData()} didClickRow={this.bindDidClickRow} />
           </div>
-          <input type='file' name='song' style={{display:'none'}} onChange={this.handleChange} />
+          <input type='file' name='song' style={{display:'none'}} onChange={this.bindHandleChange} />
           <div>
             <input type='button' value='ファイル選択' onClick={this.handleClick} />
             <img src='assets/indicator.gif' name='indicator' style={{display:this.state.indicator_display}} />
@@ -51,8 +50,16 @@ class Deck extends React.Component {
     );
   }
 
+  createListData() {
+    return this.state.songs.map(s => new ListData(s.id, s.artist));
+  }
+
   fetch() {
-    axios.get('music_player/songs')
+    axios.get('music_player/songs', {
+          params: {
+            group_key: 'artist'
+          }
+        })
         .then((results) => {
           console.log(results)
           this.setState({songs: results.data});
@@ -96,16 +103,7 @@ class Deck extends React.Component {
     document.getElementsByName("song")[0].click();
   }
 
-  handleListClick(itemId) {
-    var nextDatas = this.state.songs.find((song) => {return this.listId(song) === itemId})
-    if (nextDatas) {
-      this.setState(
-          {
-            songs: nextDatas,
-            layer: this.state.layer + 1,
-          }
-      );
-    }
+  didClickRow(listData) {
   }
 }
 
