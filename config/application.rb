@@ -25,5 +25,6 @@ module MusicPlayer
 
     config.autoload_paths += Dir[Rails.root.join('app', 'models')]
     config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
+    config.autoload_paths += Dir[Rails.root.join('app', 'forms')]
   end
 end

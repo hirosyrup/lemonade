@@ -3,8 +3,7 @@ class MusicPlayerController < ApplicationController
   end
 
   def songs
-    @songs = Song.all
-    @songs = @songs.group(:artist)
+    @songs = Aggregations::Song.where_by(SongSearchForm.from_params(params))
 
     render json: @songs
   end
