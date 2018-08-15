@@ -18,7 +18,7 @@ class AlbumList extends React.Component {
     this.bindDidClickRow = this.didClickRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetch();
   }
 

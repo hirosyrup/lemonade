@@ -17,7 +17,7 @@ class SongList extends React.Component {
     this.bindDidClickRow = this.didClickRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.fetch();
   }
 
