@@ -7,13 +7,13 @@ import SongList from "./SongList";
 class AlbumList extends React.Component {
   static propTypes = {
     artist: PropTypes.string.isRequired,
-    selected_album: null,
   };
 
   constructor(props) {
     super(props)
     this.state = {
       songs: [],
+      selected_album: null,
     }
     this.bindDidClickRow = this.didClickRow.bind(this);
   }
