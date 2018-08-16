@@ -14,36 +14,41 @@ class SongList extends React.Component {
       layer: 0,
     }
     this.bindDidClickRow = this.didClickRow.bind(this);
+    this.bindDidClickBack = this.didClickBack.bind(this);
   }
 
   componentWillMount() {
-    this.updateCurrent();
+    this.updateCurrentList();
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateCurrent();
+    this.updateCurrentList();
   }
 
   render() {
     return (
         <React.Fragment>
+          <input type='button' value='戻る' onClick={this.bindDidClickBack} />
           <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow} />
         </React.Fragment>
     );
   }
 
-  updateCurrent() {
-    let strategy = this.state.strategy;
+  updateCurrentList() {
+    this.updateList(this.state.strategy, this.state.layer)
+  }
+
+  updateList(strategy, layer) {
     this.fetch(strategy)
         .then((data) => {
           strategy.songs = data;
-          this.setState({strategy: strategy});
+          this.setState({strategy: strategy, layer: layer});
         })
         .catch((data) =>{
         })
   }
 
-  updateNext(selectedListData) {
+  toNextList(selectedListData) {
     let strategy = null;
     let layer = null;
     switch (this.state.layer) {
@@ -52,7 +57,7 @@ class SongList extends React.Component {
         layer = 1;
         break;
       case 1:
-        strategy = new SongListStrategy(this.state.strategy.artistName, selectedListData.name),
+        strategy = new SongListStrategy(this.state.strategy.artistName, selectedListData.name);
         layer = 2;
         break;
       default:
@@ -60,13 +65,28 @@ class SongList extends React.Component {
     }
 
     if (strategy != null) {
-      this.fetch(strategy)
-          .then((data) => {
-            strategy.songs = data;
-            this.setState({strategy: strategy, layer: layer});
-          })
-          .catch((data) =>{
-          })
+      this.updateList(strategy, layer);
+    }
+  }
+
+  toPreviousList() {
+    let strategy = null;
+    let layer = null;
+    switch (this.state.layer) {
+      case 1:
+        strategy = new ArtistListStrategy();
+        layer = 0;
+        break;
+      case 2:
+        strategy = new AlbumListStrategy(this.state.strategy.artistName);
+        layer = 1;
+        break;
+      default:
+        break;
+    }
+
+    if (strategy != null) {
+      this.updateList(strategy, layer);
     }
   }
 
@@ -87,7 +107,11 @@ class SongList extends React.Component {
   }
 
   didClickRow(listData) {
-    this.updateNext(listData);
+    this.toNextList(listData);
+  }
+
+  didClickBack() {
+    this.toPreviousList();
   }
 }
 
