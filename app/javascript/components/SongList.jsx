@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "./AxiosDefault";
 import List from './List'
-import ListData from '../data/ListData'
+import ListData from '../model/data/ListData'
 
 class SongList extends React.Component {
   static propTypes = {

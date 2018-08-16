@@ -1,7 +1,7 @@
 import React from "react"
 import axios from "./AxiosDefault";
 import List from './List'
-import ListData from '../data/ListData'
+import ListData from '../model/data/ListData'
 import AlbumList from "./AlbumList";
 
 class ArtistList extends React.Component {
