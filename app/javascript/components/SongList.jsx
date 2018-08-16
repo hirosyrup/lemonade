@@ -17,14 +17,11 @@ class SongList extends React.Component {
   }
 
   componentWillMount() {
-    let strategy = this.state.strategy;
-    this.fetch(strategy)
-        .then((data) => {
-          strategy.songs = data;
-          this.setState({strategy: strategy});
-        })
-        .catch((data) =>{
-        })
+    this.updateCurrent();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateCurrent();
   }
 
   render() {
@@ -33,6 +30,17 @@ class SongList extends React.Component {
           <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow} />
         </React.Fragment>
     );
+  }
+
+  updateCurrent() {
+    let strategy = this.state.strategy;
+    this.fetch(strategy)
+        .then((data) => {
+          strategy.songs = data;
+          this.setState({strategy: strategy});
+        })
+        .catch((data) =>{
+        })
   }
 
   updateNext(selectedListData) {
