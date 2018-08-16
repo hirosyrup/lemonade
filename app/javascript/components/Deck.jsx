@@ -1,6 +1,6 @@
 import React from "react"
 import axios from './AxiosDefault'
-import ArtistList from './ArtistList'
+import SongList from './SongList'
 
 class Deck extends React.Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Deck extends React.Component {
       <React.Fragment>
         <div className='board-row'>
           <div className='scroll_box'>
-            <ArtistList/>
+            <SongList/>
           </div>
           <input type='file' name='song' style={{display:'none'}} onChange={this.bindHandleChange} />
           <div>

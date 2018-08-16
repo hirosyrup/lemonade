@@ -1,59 +1,85 @@
 import React from "react"
 import axios from "./AxiosDefault";
 import List from './List'
-import ListData from '../model/data/ListData'
+import ArtistListStrategy from "../model/strategy/ArtistListStrategy";
+import AlbumListStrategy from "../model/strategy/AlbumListStrategy";
+import SongListStrategy from "../model/strategy/SongListStrategy";
 
 class SongList extends React.Component {
-  static propTypes = {
-    artist: PropTypes.string.isRequired,
-    album: PropTypes.string.isRequired,
-  };
 
   constructor(props) {
     super(props)
     this.state = {
-      songs: [],
+      strategy: new ArtistListStrategy(),
+      layer: 0,
     }
     this.bindDidClickRow = this.didClickRow.bind(this);
   }
 
   componentWillMount() {
-    this.fetch();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.fetch();
+    let strategy = this.state.strategy;
+    this.fetch(strategy)
+        .then((data) => {
+          strategy.songs = data;
+          this.setState({strategy: strategy});
+        })
+        .catch((data) =>{
+        })
   }
 
   render() {
     return (
         <React.Fragment>
-          <List datas={this.createListData()} didClickRow={this.bindDidClickRow} />
+          <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow} />
         </React.Fragment>
     );
   }
 
-  fetch() {
-    axios.get('music_player/songs', {
-      params: {
-        artist: this.props.artist,
-        album: this.props.album
-      }
-    })
-        .then((results) => {
-          console.log(results)
-          this.setState({songs: results.data});
-        })
-        .catch((data) =>{
-          console.log(data);
-        })
+  updateNext(selectedListData) {
+    let strategy = null;
+    let layer = null;
+    switch (this.state.layer) {
+      case 0:
+        strategy = new AlbumListStrategy(selectedListData.name);
+        layer = 1;
+        break;
+      case 1:
+        strategy = new SongListStrategy(this.state.strategy.artistName, selectedListData.name),
+        layer = 2;
+        break;
+      default:
+        break;
+    }
+
+    if (strategy != null) {
+      this.fetch(strategy)
+          .then((data) => {
+            strategy.songs = data;
+            this.setState({strategy: strategy, layer: layer});
+          })
+          .catch((data) =>{
+          })
+    }
   }
 
-  createListData() {
-    return this.state.songs.map(s => new ListData(s.id, s.title));
+  fetch(strategy) {
+    return new Promise((resolve, reject) => {
+      axios.get('music_player/songs', {
+        params: strategy.createFetchParams()
+      })
+          .then((results) => {
+            console.log(results)
+            resolve(results.data);
+          })
+          .catch((data) => {
+            console.log(data);
+            reject(data);
+          })
+    });
   }
 
   didClickRow(listData) {
+    this.updateNext(listData);
   }
 }
 
