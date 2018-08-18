@@ -11,9 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180728122114) do
+ActiveRecord::Schema.define(version: 20180818124921) do
 
   create_table "songs", force: :cascade do |t|
+    t.string   "uuid",       limit: 255,              null: false
     t.string   "file",       limit: 255,              null: false
     t.string   "title",      limit: 255, default: ""
     t.string   "album",      limit: 255, default: ""

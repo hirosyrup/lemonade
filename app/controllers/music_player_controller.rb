@@ -1,9 +1,10 @@
 class MusicPlayerController < ApplicationController
   def index
+    session[:uuid] = SecureRandom.uuid unless session[:uuid]
   end
 
   def songs
-    @songs = Aggregations::Song.new.where_by(SongSearchForm.from_params(params))
+    @songs = Aggregations::Song.new.where_by(SongSearchForm.from_params(params, session[:uuid]))
 
     render json: @songs
   end

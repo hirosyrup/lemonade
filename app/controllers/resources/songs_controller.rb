@@ -1,7 +1,7 @@
 class Resources::SongsController < ApplicationController
   def create
     aggregation = Aggregations::Song.new
-    @song = aggregation.save(params)
+    @song = aggregation.save(params, session[:uuid])
 
     render json: @song
   end
