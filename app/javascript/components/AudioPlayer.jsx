@@ -3,14 +3,12 @@ import React from "react"
 class AudioPlayer extends React.Component {
   componentDidMount() {
     this.context = new window.AudioContext();
-    this.source = this.context.createBufferSource();
-    this.source.connect(this.context.destination);
+    this.setupNode();
   }
 
   render() {
     return (
         <React.Fragment>
-          <div></div>
         </React.Fragment>
     );
   }
@@ -20,16 +18,26 @@ class AudioPlayer extends React.Component {
 
     this.getAudioBuffer(url)
         .then((buffer) => {
-          if (this.source.buffer) {
-            this.source.stop();
-            this.source.buffer = null;
-            this.source.disconnect();
-            this.source = this.context.createBufferSource();
-            this.source.connect(this.context.destination);
-          }
+          this.resetSourceConnect();
           this.source.buffer = buffer;
           this.source.start(0);
         })
+  }
+
+  resetSourceConnect() {
+    if (this.source) {
+      if (this.source.buffer) {
+        this.source.stop();
+      }
+      this.source.buffer = null;
+      this.source.disconnect();
+    }
+    this.source = this.context.createBufferSource();
+    this.source.connect(this.context.destination);
+  }
+
+  setupNode() {
+    this.resetSourceConnect();
   }
 
   getAudioBuffer(url) {
