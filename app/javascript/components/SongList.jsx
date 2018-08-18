@@ -28,8 +28,10 @@ class SongList extends React.Component {
   render() {
     return (
         <React.Fragment>
-          <input type='button' value='戻る' onClick={this.bindDidClickBack} />
-          <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow} />
+          <input type='button' value='戻る' onClick={this.bindDidClickBack}/>
+          <div className='scroll_box'>
+            <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
+          </div>
         </React.Fragment>
     );
   }

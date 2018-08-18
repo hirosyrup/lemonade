@@ -28,9 +28,7 @@ class Deck extends React.Component {
     return (
       <React.Fragment>
         <div className='board-row'>
-          <div className='scroll_box'>
-            <SongList/>
-          </div>
+          <SongList/>
           <input type='file' name='song' style={{display:'none'}} onChange={this.bindHandleChange} />
           <div>
             <input type='button' value='ファイル選択' onClick={this.handleClick} />
