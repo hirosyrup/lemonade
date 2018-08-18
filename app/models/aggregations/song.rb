@@ -10,9 +10,9 @@ class Aggregations::Song
     TagLib::FileRef.open(song.file_path) do |fileref|
       if fileref
         tag = fileref.tag
-        song.title = tag.title
-        song.artist = tag.artist
-        song.album = tag.album
+        song.title = tag.title.present? ? tag.title : 'Unknown Title'
+        song.artist = tag.artist.present? ? tag.artist : 'Unknown Artist'
+        song.album = tag.album.present? ? tag.album : 'Unknown Album'
       end
     end
     song.save!
