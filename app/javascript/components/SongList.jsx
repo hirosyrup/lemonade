@@ -33,7 +33,7 @@ class SongList extends React.Component {
     return (
         <React.Fragment>
           <div className='song_list_box'>
-            <input type='button' value='戻る' onClick={this.bindDidClickBack}
+            <input type='button' value='back' onClick={this.bindDidClickBack}
                    style={{visibility: this.backButtonHidden()}}/>
             <span className='song_list_title'>{this.state.strategy.title()}</span>
             <div className='scroll_box'>

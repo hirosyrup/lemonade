@@ -23,9 +23,9 @@ class AudioControl extends React.Component {
     return (
         <React.Fragment>
           <div>
-            <input type='button' value='再生' onClick={this.bindPlay} style={{display: this.playButtonDisplay()}}/>
-            <input type='button' value='一時停止' onClick={this.bindPause} style={{display: this.pauseButtonDisplay()}}/>
-            <input type='button' value='停止' onClick={this.bindStop}/>
+            <input type='button' value='play' onClick={this.bindPlay} style={{display: this.playButtonDisplay()}}/>
+            <input type='button' value='pause' onClick={this.bindPause} style={{display: this.pauseButtonDisplay()}}/>
+            <input type='button' value='stop' onClick={this.bindStop}/>
           </div>
         </React.Fragment>
     );

@@ -37,7 +37,7 @@ class Upload extends React.Component {
         <React.Fragment>
           <input type='file' name='song' style={{display: 'none'}} onChange={this.bindHandleChange}/>
           <div>
-            <input type='button' value='ファイル選択' onClick={this.handleClick}/>
+            <input type='button' value='file select' onClick={this.handleClick}/>
             <img src='assets/indicator.gif' name='indicator' style={{display: this.state.indicator_display}}/>
           </div>
         </React.Fragment>
