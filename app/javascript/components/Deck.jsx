@@ -18,8 +18,8 @@ class Deck extends React.Component {
     return (
       <React.Fragment>
         <div className='board-row'>
-          <SongList didSelectSong={this.bindDidSelectSong}/>
           <Upload didUploaded={this.bindDidUploaded}/>
+          <SongList didSelectSong={this.bindDidSelectSong}/>
           <AudioPlayer ref={ref => this.bindAudioPlayerRef = ref}/>
         </div>
       </React.Fragment>

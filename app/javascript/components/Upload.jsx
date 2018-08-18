@@ -41,7 +41,7 @@ class Upload extends React.Component {
   }
 
   showIndicator() {
-    this.setState({indicator_display: 'block'});
+    this.setState({indicator_display: 'inline-block'});
   }
 
   hideIndicator() {
