@@ -7,6 +7,7 @@ class Aggregations::Song
   def save(params)
     song = Song.new(params.permit(:file))
     song.uuid = params[:uuid]
+    song.save!
     TagLib::FileRef.open(song.file_path) do |fileref|
       if fileref
         tag = fileref.tag
