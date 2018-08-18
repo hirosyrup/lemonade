@@ -31,7 +31,7 @@ class SongList extends React.Component {
   render() {
     return (
         <React.Fragment>
-          <input type='button' value='戻る' onClick={this.bindDidClickBack}/>
+          <input type='button' value='戻る' onClick={this.bindDidClickBack} style={{visibility: this.backButtonHidden()}}/>
           <div className='scroll_box'>
             <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
           </div>
@@ -97,6 +97,14 @@ class SongList extends React.Component {
 
   isLast() {
     return this.state.layer === 2;
+  }
+
+  backButtonHidden() {
+    if (this.state.layer === 0) {
+      return 'hidden';
+    } else {
+      return 'visible';
+    }
   }
 
   songAt(id) {
