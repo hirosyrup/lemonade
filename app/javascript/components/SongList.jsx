@@ -142,4 +142,4 @@ class SongList extends React.Component {
   }
 }
 
-export default SongList
+export default SongList;

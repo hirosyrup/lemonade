@@ -60,4 +60,4 @@ class AudioControl extends React.Component {
   }
 }
 
-export default AudioControl
+export default AudioControl;

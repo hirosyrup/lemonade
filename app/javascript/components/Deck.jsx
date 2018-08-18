@@ -35,4 +35,4 @@ class Deck extends React.Component {
   }
 }
 
-export default Deck
+export default Deck;
