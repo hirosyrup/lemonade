@@ -2,6 +2,8 @@ require 'taglib'
 require 'song'
 
 class Aggregations::Song
+  DEMO_SONG_UUID = 'e1e73245-cb27-4da1-ad0b-c0464f3886e5'.freeze
+
   def save(params)
     song = Song.new(params.permit(:file))
     song.uuid = params[:uuid]
@@ -27,7 +29,7 @@ class Aggregations::Song
   def where_by(song_search_option)
     return [] if song_search_option.uuid.blank?
     Song.all
-        .tap {|ss| break ss.where(uuid: song_search_option.uuid)}
+        .tap {|ss| break ss.where(uuid: [song_search_option.uuid, DEMO_SONG_UUID])}
         .tap {|ss| break ss.where(artist: song_search_option.artist) if song_search_option.artist.present?}
         .tap {|ss| break ss.where(album: song_search_option.album) if song_search_option.album.present?}
         .tap {|ss| break ss.group(song_search_option.group_key) if song_search_option.group_key.present?}
@@ -37,6 +39,6 @@ class Aggregations::Song
   # デモ曲以外を削除する
   #
   def delete_all_without_demo_songs
-    Song.all.each { |s| s.destroy! }
+    Song.where.not(uuid: DEMO_SONG_UUID).each { |s| s.destroy! }
   end
 end
