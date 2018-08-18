@@ -14,6 +14,10 @@ class ArtistListStrategy {
   createListData() {
     return this.songs.map(s => new ListData(s.id, s.artist));
   }
+
+  title() {
+    return 'Artists';
+  }
 }
 
 export default ArtistListStrategy
