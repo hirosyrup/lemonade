@@ -1,7 +1,7 @@
 import React from "react"
 import SongList from './SongList'
 import Upload from './Upload'
-import AudioPlayer from "./AudioPlayer";
+import AudioControl from "./AudioControl";
 
 class Deck extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class Deck extends React.Component {
         <div className='board-row'>
           <Upload didUploaded={this.bindDidUploaded}/>
           <SongList didSelectSong={this.bindDidSelectSong}/>
-          <AudioPlayer ref={ref => this.bindAudioPlayerRef = ref}/>
+          <AudioControl ref={ref => this.bindAudioPlayerRef = ref}/>
         </div>
       </React.Fragment>
     );

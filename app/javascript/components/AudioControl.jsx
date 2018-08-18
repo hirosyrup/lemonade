@@ -1,6 +1,6 @@
 import React from "react"
 
-class AudioPlayer extends React.Component {
+class AudioControl extends React.Component {
   componentDidMount() {
     this.context = new window.AudioContext();
     this.setupNode();
@@ -60,4 +60,4 @@ class AudioPlayer extends React.Component {
   }
 }
 
-export default AudioPlayer
+export default AudioControl
