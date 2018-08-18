@@ -1,24 +1,61 @@
 class AudioPlayer {
   constructor () {
+    this.didChangePlayStatus = null;
+    this.source = null;
+    this.playing = false;
     this.context = new window.AudioContext();
+    this.audioBuffer = null;
     this.setupNode();
   }
 
-  play(url) {
-    if (!url) return;
+  resume() {
+    if (this.playing) return;
+    if (!this.audioBuffer) return;
 
-    this.getAudioBuffer(url)
-        .then((buffer) => {
-          this.resetSourceConnect();
-          this.source.buffer = buffer;
-          this.source.start(0);
-        })
+    if (!this.source.buffer) {
+      this.source.start();
+      this.source.buffer = this.audioBuffer;
+    }
+    this.context.resume();
+    this.changePlayingStatus(true);
+  }
+
+  pause() {
+    if (!this.playing) return;
+    if (!this.source.buffer) return;
+
+    this.context.suspend()
+        .then(() =>{
+          this.changePlayingStatus(false);
+        });
+  }
+
+  stop() {
+    if (!this.source.buffer) return;
+
+    this.resetSourceConnect();
+  }
+
+  setSource(url) {
+    return new Promise((resolve) => {
+      if (!url) {
+        return resolve(false);
+      }
+
+      this.getAudioBuffer(url)
+          .then((buffer) => {
+            this.resetSourceConnect();
+            this.audioBuffer = buffer;
+            resolve(true)
+          })
+    });
   }
 
   resetSourceConnect() {
     if (this.source) {
       if (this.source.buffer) {
         this.source.stop();
+        this.changePlayingStatus(false);
       }
       this.source.buffer = null;
       this.source.disconnect();
@@ -48,6 +85,13 @@ class AudioPlayer {
       req.open('GET', url, true);
       req.send();
     });
+  }
+
+  changePlayingStatus(isPlay) {
+    this.playing = isPlay;
+    if (this.didChangePlayStatus) {
+      this.didChangePlayStatus();
+    }
   }
 }
 

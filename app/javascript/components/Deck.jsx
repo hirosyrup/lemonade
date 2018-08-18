@@ -31,7 +31,7 @@ class Deck extends React.Component {
   }
 
   didSelectSong(song) {
-    this.bindAudioPlayerRef.play(song.file.url);
+    this.bindAudioPlayerRef.setSource(song.file.url);
   }
 }
 
