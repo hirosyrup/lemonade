@@ -62,6 +62,7 @@ class AudioPlayer {
     }
     this.source = this.context.createBufferSource();
     this.source.connect(this.context.destination);
+    this.source.onended = this.onEnded.bind(this);
   }
 
   setupNode() {
@@ -92,6 +93,10 @@ class AudioPlayer {
     if (this.didChangePlayStatus) {
       this.didChangePlayStatus();
     }
+  }
+
+  onEnded() {
+    this.stop();
   }
 }
 
