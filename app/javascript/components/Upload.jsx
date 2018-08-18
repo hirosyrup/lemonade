@@ -4,6 +4,7 @@ import axios from "./AxiosDefault";
 class Upload extends React.Component {
   static propTypes = {
     didUploaded: PropTypes.func.isRequired,
+    uuid: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -17,7 +18,8 @@ class Upload extends React.Component {
   handleChange = (e) => {
     e.preventDefault();
     let form = new FormData();
-    form.append('file',e.target.files[0]);
+    form.append('file', e.target.files[0]);
+    form.append('uuid', this.props.uuid);
 
     this.showIndicator();
     axios.post('resources/songs/create', form)

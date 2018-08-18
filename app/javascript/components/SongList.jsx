@@ -8,6 +8,7 @@ import SongListStrategy from "../model/strategy/SongListStrategy";
 class SongList extends React.Component {
   static propTypes = {
     didSelectSong: PropTypes.func.isRequired,
+    uuid: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -115,8 +116,10 @@ class SongList extends React.Component {
 
   fetch(strategy) {
     return new Promise((resolve, reject) => {
+      let params = strategy.createFetchParams();
+      params['uuid'] = this.props.uuid;
       axios.get('music_player/songs', {
-        params: strategy.createFetchParams()
+        params: params
       })
           .then((results) => {
             console.log(results)

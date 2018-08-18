@@ -8,16 +8,15 @@ class SongSearchForm
   # パラメータから生成する
   #
   # @param params [Hash]
-  # @param uuid [String]
   #
   # @return [Forms::SongSearchForm]
   #
-  def self.from_params(params, uuid)
+  def self.from_params(params)
     new(
         artist: params[:artist],
         album: params[:album],
         group_key: params[:group_key],
-        uuid: uuid,
+        uuid: params[:uuid],
         )
   end
 

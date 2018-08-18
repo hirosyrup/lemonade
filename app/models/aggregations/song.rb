@@ -2,9 +2,9 @@ require 'taglib'
 require 'song'
 
 class Aggregations::Song
-  def save(params, uuid)
+  def save(params)
     song = Song.new(params.permit(:file))
-    song.uuid = uuid
+    song.uuid = params[:uuid]
     TagLib::FileRef.open(song.file_path) do |fileref|
       if fileref
         tag = fileref.tag

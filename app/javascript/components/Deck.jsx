@@ -4,6 +4,10 @@ import Upload from './Upload'
 import AudioControl from "./AudioControl";
 
 class Deck extends React.Component {
+  static propTypes = {
+    uuid: PropTypes.string.isRequired,
+  };
+
   constructor(props) {
     super(props)
     this.state = {
@@ -18,8 +22,8 @@ class Deck extends React.Component {
     return (
       <React.Fragment>
         <div className='board-row'>
-          <Upload didUploaded={this.bindDidUploaded}/>
-          <SongList didSelectSong={this.bindDidSelectSong}/>
+          <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
+          <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
           <AudioControl ref={ref => this.bindAudioPlayerRef = ref}/>
         </div>
       </React.Fragment>
