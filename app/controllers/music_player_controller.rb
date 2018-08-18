@@ -12,8 +12,4 @@ class MusicPlayerController < ApplicationController
 
     render json: @songs
   end
-
-  def upload_demo_songs
-    @uuid = Aggregations::Song::DEMO_SONG_UUID
-  end
 end

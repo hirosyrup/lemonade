@@ -3,7 +3,7 @@ import axios from "./AxiosDefault";
 
 class Upload extends React.Component {
   static propTypes = {
-    didUploaded: PropTypes.func,
+    didUploaded: PropTypes.func.isRequired,
     uuid: PropTypes.string.isRequired,
   };
 
@@ -26,9 +26,7 @@ class Upload extends React.Component {
         .then((results) => {
           console.log(results)
           this.hideIndicator();
-          if (this.props.didUploaded) {
-            this.props.didUploaded();
-          }
+          this.props.didUploaded();
         });
   }
 
