@@ -3,7 +3,7 @@ class MusicPlayerController < ApplicationController
   end
 
   def songs
-    @songs = Aggregations::Song.where_by(SongSearchForm.from_params(params))
+    @songs = Aggregations::Song.new.where_by(SongSearchForm.from_params(params))
 
     render json: @songs
   end
