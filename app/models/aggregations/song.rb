@@ -39,6 +39,6 @@ class Aggregations::Song
   # デモ曲以外を削除する
   #
   def delete_all_without_demo_songs
-    Song.where.not(uuid: DEMO_SONG_UUID).each { |s| s.destroy! }
+    Song.all.each { |s| s.destroy! }
   end
 end
