@@ -9,13 +9,14 @@ class Deck extends React.Component {
       listUpdate: 0,
     }
     this.bindDidUploaded = this.didUploaded.bind(this);
+    this.bindDidSelectSong = this.didSelectSong.bind(this);
   }
 
   render() {
     return (
       <React.Fragment>
         <div className='board-row'>
-          <SongList/>
+          <SongList didSelectSong={this.bindDidSelectSong}/>
           <Upload didUploaded={this.bindDidUploaded}/>
         </div>
       </React.Fragment>
@@ -24,6 +25,9 @@ class Deck extends React.Component {
 
   didUploaded() {
     this.setState({ listUpdate: Math.random() });
+  }
+
+  didSelectSong(song) {
   }
 }
 

@@ -6,6 +6,9 @@ import AlbumListStrategy from "../model/strategy/AlbumListStrategy";
 import SongListStrategy from "../model/strategy/SongListStrategy";
 
 class SongList extends React.Component {
+  static propTypes = {
+    didSelectSong: PropTypes.func.isRequired,
+  };
 
   constructor(props) {
     super(props)
@@ -92,6 +95,16 @@ class SongList extends React.Component {
     }
   }
 
+  isLast() {
+    return this.state.layer === 2;
+  }
+
+  songAt(id) {
+    return this.state.strategy.songs.find((song) => {
+      return song.id === id;
+    });
+  }
+
   fetch(strategy) {
     return new Promise((resolve, reject) => {
       axios.get('music_player/songs', {
@@ -109,7 +122,11 @@ class SongList extends React.Component {
   }
 
   didClickRow(listData) {
-    this.toNextList(listData);
+    if (this.isLast()) {
+      this.props.didSelectSong(this.songAt(listData.id));
+    } else {
+      this.toNextList(listData);
+    }
   }
 
   didClickBack() {
