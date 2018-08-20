@@ -8,9 +8,10 @@ class MusicPlayerController < ApplicationController
   end
 
   def songs
-    @songs = Aggregations::Song.new.where_by(SongSearchForm.from_params(params))
+    aggregation = Aggregations::Song.new
+    @songs = aggregation.where_by(SongSearchForm.from_params(params))
 
-    render json: @songs
+    render json: aggregation.add_file_url_to_songs_as_hash(@songs)
   end
 
   def upload_demo_songs

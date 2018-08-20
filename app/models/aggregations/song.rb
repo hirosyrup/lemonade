@@ -24,7 +24,7 @@ class Aggregations::Song
   #
   # @param song_search_option [Forms::SongSearchForm]
   #
-  # @return [Array<Aggregations::Item>]
+  # @return [Array<Song>]
   #
   def where_by(song_search_option)
     return [] if song_search_option.uuid.blank?
@@ -40,5 +40,25 @@ class Aggregations::Song
   #
   def delete_all_without_demo_songs
     Song.where.not(uuid: DEMO_SONG_UUID).each { |s| s.destroy! }
+  end
+
+  #
+  # ファイルURLを追加した状態のjsonを生成
+  #
+  # @param songs [Array<Song>] 曲
+  #
+  # @return [Hash]
+  #
+  def add_file_url_to_songs_as_hash(songs)
+    songs.map do |s|
+      if s.uuid == DEMO_SONG_UUID
+        file_url = "https://s3-ap-northeast-1.amazonaws.com/rails-audio#{s.file_url}"
+      else
+        file_url = s.file_url
+      end
+      hash = s.attributes
+      hash[:file_url] = file_url
+      hash
+    end
   end
 end
