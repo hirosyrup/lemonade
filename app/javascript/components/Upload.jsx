@@ -29,6 +29,10 @@ class Upload extends React.Component {
           if (this.props.didUploaded) {
             this.props.didUploaded();
           }
+        })
+        .catch((exception) => {
+          this.hideIndicator();
+          alert(exception.response.data.message);
         });
   }
 

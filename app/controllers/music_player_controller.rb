@@ -12,6 +12,9 @@ class MusicPlayerController < ApplicationController
     @songs = aggregation.where_by(SongSearchForm.from_params(params))
 
     render json: aggregation.add_file_url_to_songs_as_hash(@songs)
+  rescue => e
+    error = Concerns::Error.new(e)
+    render json: error.create, status: error.status_code
   end
 
   def upload_demo_songs
