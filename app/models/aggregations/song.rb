@@ -6,6 +6,9 @@ class Aggregations::Song
 
   class InvalidFile < StandardError; end
 
+  #
+  # @param params [Hash]
+  #
   def save(params)
     song = Song.new(params.permit(:file))
     raise InvalidFile.new('The file is not .m4a or over 10 megabytes.') unless song.file_path
@@ -24,8 +27,6 @@ class Aggregations::Song
   end
 
   #
-  # 検索
-  #
   # @param song_search_option [Forms::SongSearchForm]
   #
   # @return [Array<Song>]
@@ -40,16 +41,14 @@ class Aggregations::Song
   end
 
   #
-  # デモ曲以外を削除する
+  #
   #
   def delete_all_without_demo_songs
     Song.where.not(uuid: DEMO_SONG_UUID).each { |s| s.destroy! }
   end
 
   #
-  # ファイルURLを追加した状態のjsonを生成
-  #
-  # @param songs [Array<Song>] 曲
+  # @param songs [Array<Song>]
   #
   # @return [Hash]
   #
