@@ -4,8 +4,12 @@ require 'song'
 class Aggregations::Song
   DEMO_SONG_UUID = 'e1e73245-cb27-4da1-ad0b-c0464f3886e5'.freeze
 
+  class InvalidFile < StandardError; end
+
   def save(params)
     song = Song.new(params.permit(:file))
+    raise InvalidFile.new('The file is not .m4a or over 10 megabytes.') unless song.file_path
+
     song.uuid = params[:uuid]
     TagLib::FileRef.open(song.file_path) do |fileref|
       if fileref

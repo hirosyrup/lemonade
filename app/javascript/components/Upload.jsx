@@ -16,7 +16,10 @@ class Upload extends React.Component {
   }
 
   handleChange = (e) => {
-    e.preventDefault();
+    if (e.target.files[0] === undefined) {
+      return;
+    }
+
     let form = new FormData();
     form.append('file', e.target.files[0]);
     form.append('uuid', this.props.uuid);
