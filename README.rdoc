@@ -1,8 +1,11 @@
 == README
 
 This project made for me to learn Rails and React.  
+
 It is a simple audio player.  
+
 You can try free from the following URL.  
+
 https://koalab-lemonade.herokuapp.com/
 
 There are the following conditions.
