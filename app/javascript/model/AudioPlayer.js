@@ -3,7 +3,8 @@ class AudioPlayer {
     this.didChangePlayStatus = null;
     this.source = null;
     this.playing = false;
-    this.context = new window.AudioContext();
+    let AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.context = new AudioContext();
     this.audioBuffer = null;
     this.setupNode();
   }
@@ -13,8 +14,8 @@ class AudioPlayer {
     if (!this.audioBuffer) return;
 
     if (!this.source.buffer) {
-      this.source.start();
       this.source.buffer = this.audioBuffer;
+      this.source.start();
     }
     this.context.resume();
     this.changePlayingStatus(true);
@@ -76,10 +77,15 @@ class AudioPlayer {
       req.onreadystatechange = (() => {
         if (req.readyState === 4) {
           if (req.status === 0 || req.status === 200) {
-            this.context.decodeAudioData(req.response)
-                .then((buffer) => {
-                  resolve(buffer);
-                });
+
+            this.context.decodeAudioData(req.response,
+                audioBuffer => {
+                  resolve(audioBuffer);
+                },
+                error => {
+                  console.error(error)
+                }
+            );
           }
         }
       })
