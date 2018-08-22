@@ -11,7 +11,6 @@ https://koalab-lemonade.herokuapp.com/
 There are the following conditions.
 
 * PC only.
-* Google Chrome or Firefox (not working on Safari)
 * .m4a file only.
 * 10 megabytes or less
 * Uploaded audio files will be deleted after one day.
