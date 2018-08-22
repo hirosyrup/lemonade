@@ -43,6 +43,9 @@ class AudioPlayer {
         return resolve(false);
       }
 
+      // for mobile
+      this.context.createBufferSource().start();
+
       this.getAudioBuffer(url)
           .then((buffer) => {
             this.resetSourceConnect();
