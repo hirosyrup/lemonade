@@ -16,7 +16,7 @@ class AudioControl extends React.Component {
 
   componentDidMount() {
     this.player = new AudioPlayer();
-    this.player.setDidChangePlayStatus(this.didChangePlayStatus.bind(this));
+    this.player.didChangePlayStatus = this.didChangePlayStatus.bind(this);
   }
 
   render() {
@@ -32,7 +32,7 @@ class AudioControl extends React.Component {
   }
 
   playButtonDisplay() {
-    if (!this.player || !this.player.playing()) {
+    if (!this.player || !this.player.playing) {
       return 'inline-block';
     } else {
       return 'none';
@@ -40,7 +40,7 @@ class AudioControl extends React.Component {
   }
 
   pauseButtonDisplay() {
-    if (this.player && this.player.playing()) {
+    if (this.player && this.player.playing) {
       return 'inline-block';
     } else {
       return 'none';

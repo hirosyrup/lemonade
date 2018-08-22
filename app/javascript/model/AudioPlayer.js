@@ -1,34 +1,102 @@
-import AudioContextBlinkStrategy from './strategy/AudioContextBlinkStrategy'
-
 class AudioPlayer {
   constructor () {
-    if (window.AudioContext) {
-      this.strategy = new AudioContextBlinkStrategy();
-    }
+    this.didChangePlayStatus = null;
+    this.source = null;
+    this.playing = false;
+    this.context = new window.AudioContext();
+    this.audioBuffer = null;
+    this.setupNode();
   }
 
   resume() {
-    this.strategy.resume()
+    if (this.playing) return;
+    if (!this.audioBuffer) return;
+
+    if (!this.source.buffer) {
+      this.source.start();
+      this.source.buffer = this.audioBuffer;
+    }
+    this.context.resume();
+    this.changePlayingStatus(true);
   }
 
   pause() {
-    this.strategy.pause()
+    if (!this.playing) return;
+    if (!this.source.buffer) return;
+
+    this.context.suspend()
+        .then(() =>{
+          this.changePlayingStatus(false);
+        });
   }
 
   stop() {
-    this.strategy.stop()
+    if (!this.source.buffer) return;
+
+    this.resetSourceConnect();
   }
 
   setSource(url) {
-    return this.strategy.setSource(url);
+    return new Promise((resolve) => {
+      if (!url) {
+        return resolve(false);
+      }
+
+      this.getAudioBuffer(url)
+          .then((buffer) => {
+            this.resetSourceConnect();
+            this.audioBuffer = buffer;
+            resolve(true)
+          })
+    });
   }
 
-  setDidChangePlayStatus(callback) {
-    this.strategy.didChangePlayStatus = callback;
+  resetSourceConnect() {
+    if (this.source) {
+      if (this.source.buffer) {
+        this.source.stop();
+        this.changePlayingStatus(false);
+      }
+      this.source.buffer = null;
+      this.source.disconnect();
+    }
+    this.source = this.context.createBufferSource();
+    this.source.connect(this.context.destination);
+    this.source.onended = this.onEnded.bind(this);
   }
 
-  playing() {
-    return this.strategy.playing
+  setupNode() {
+    this.resetSourceConnect();
+  }
+
+  getAudioBuffer(url) {
+    return new Promise((resolve) => {
+      let req = new XMLHttpRequest();
+      req.responseType = 'arraybuffer';
+      req.onreadystatechange = (() => {
+        if (req.readyState === 4) {
+          if (req.status === 0 || req.status === 200) {
+            this.context.decodeAudioData(req.response)
+                .then((buffer) => {
+                  resolve(buffer);
+                });
+          }
+        }
+      })
+      req.open('GET', url, true);
+      req.send();
+    });
+  }
+
+  changePlayingStatus(isPlay) {
+    this.playing = isPlay;
+    if (this.didChangePlayStatus) {
+      this.didChangePlayStatus();
+    }
+  }
+
+  onEnded() {
+    this.stop();
   }
 }
 
