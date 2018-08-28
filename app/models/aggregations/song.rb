@@ -37,7 +37,7 @@ class Aggregations::Song
         .tap {|ss| break ss.where(uuid: [song_search_option.uuid, DEMO_SONG_UUID])}
         .tap {|ss| break ss.where(artist: song_search_option.artist) if song_search_option.artist.present?}
         .tap {|ss| break ss.where(album: song_search_option.album) if song_search_option.album.present?}
-        .tap {|ss| break ss.group(song_search_option.group_key) if song_search_option.group_key.present?}
+        .tap {|ss| break ss.group_by{ |s| s.attributes[song_search_option.group_key] }.map { |g| g.last.first } if song_search_option.group_key.present?}
   end
 
   #
