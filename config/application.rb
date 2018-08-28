@@ -26,5 +26,7 @@ module MusicPlayer
     config.autoload_paths += Dir[Rails.root.join('app', 'models')]
     config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
     config.autoload_paths += Dir[Rails.root.join('app', 'forms')]
+
+    config.assets.initialize_on_precompile = false
   end
 end
