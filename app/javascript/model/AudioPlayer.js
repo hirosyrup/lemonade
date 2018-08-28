@@ -57,6 +57,7 @@ class AudioPlayer {
 
   resetSourceConnect() {
     if (this.source) {
+      this.source.onended = null;
       if (this.source.buffer) {
         this.source.stop();
         this.changePlayingStatus(false);
