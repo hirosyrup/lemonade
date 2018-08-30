@@ -13,7 +13,7 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.1.tgz#53f349bb986ab273d601175aa1b25a655ab90ee3"
 
-"@rails/webpacker@4.0":
+"@rails/webpacker@4.0.0-pre.2":
   version "4.0.0-pre.2"
   resolved "https://registry.yarnpkg.com/@rails/webpacker/-/webpacker-4.0.0-pre.2.tgz#66be9b5eac9e5f54030de4dde93820a626e70657"
   dependencies:
