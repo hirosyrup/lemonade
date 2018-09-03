@@ -1,5 +1,9 @@
 import * as React from "react"
 import AudioPlayer from './../model/AudioPlayer'
+import Button from '@material-ui/core/Button';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import Pause from '@material-ui/icons/Pause';
+import Stop from '@material-ui/icons/Stop';
 
 interface AudioControlProps {
 }
@@ -35,11 +39,9 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         return (
             <React.Fragment>
                 <div>
-                    <input type='button' value='play' onClick={this.bindPlay}
-                           style={{display: this.playButtonDisplay()}}/>
-                    <input type='button' value='pause' onClick={this.bindPause}
-                           style={{display: this.pauseButtonDisplay()}}/>
-                    <input type='button' value='stop' onClick={this.bindStop}/>
+                    <Button variant='outlined' onClick={this.bindPlay} style={{display: this.playButtonDisplay()}}><PlayArrow/></Button>
+                    <Button variant='outlined' onClick={this.bindPause} style={{display: this.pauseButtonDisplay()}}><Pause/></Button>
+                    <Button variant='outlined' onClick={this.bindStop}><Stop/></Button>
                 </div>
             </React.Fragment>
         );
