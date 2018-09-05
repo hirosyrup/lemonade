@@ -45,18 +45,18 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
                             <Button variant='outlined'
                                     fullWidth={true}
                                     style={{display: this.playButtonDisplay()}}
-                                    className='button'}
+                                    className='audio_control button'
                                     onClick={this.bindPlay}><PlayArrow/></Button>
                             <Button variant='outlined'
                                     fullWidth={true}
+                                    className='audio_control button'
                                     style={{display: this.pauseButtonDisplay()}}
-                                    className='button'
                                     onClick={this.bindPause}><Pause/></Button>
                         </Grid>
                         <Grid item xs={4}>
                             <Button variant='outlined'
                                     fullWidth={true}
-                                    className='button'
+                                    className='audio_control button'
                                     onClick={this.bindStop}><Stop/></Button>
                         </Grid>
                     </Grid>

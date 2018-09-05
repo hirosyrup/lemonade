@@ -1,3 +1,5 @@
-:local .button {
-  height: 40px;
+.audio_control {
+  &.button {
+    height: 40px;
+  }
 }
