@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
+import Theme from './../model/theme'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 interface AudioControlProps {
 }
@@ -40,26 +42,31 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         return (
             <React.Fragment>
                 <div>
-                    <Grid container spacing={16}>
-                        <Grid item xs={8}>
-                            <Button variant='outlined'
-                                    fullWidth={true}
-                                    style={{display: this.playButtonDisplay()}}
-                                    className='audio_control button'
-                                    onClick={this.bindPlay}><PlayArrow/></Button>
-                            <Button variant='outlined'
-                                    fullWidth={true}
-                                    className='audio_control button'
-                                    style={{display: this.pauseButtonDisplay()}}
-                                    onClick={this.bindPause}><Pause/></Button>
+                    <MuiThemeProvider theme={Theme}>
+                        <Grid container spacing={16}>
+                            <Grid item xs={8}>
+                                <Button variant='outlined'
+                                        fullWidth={true}
+                                        color={"primary"}
+                                        style={{display: this.playButtonDisplay()}}
+                                        className='audio_control button'
+                                        onClick={this.bindPlay}><PlayArrow/></Button>
+                                <Button variant='outlined'
+                                        fullWidth={true}
+                                        color={"primary"}
+                                        className='audio_control button'
+                                        style={{display: this.pauseButtonDisplay()}}
+                                        onClick={this.bindPause}><Pause/></Button>
+                            </Grid>
+                            <Grid item xs={4}>
+                                <Button variant='outlined'
+                                        fullWidth={true}
+                                        color={"primary"}
+                                        className='audio_control button'
+                                        onClick={this.bindStop}><Stop/></Button>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4}>
-                            <Button variant='outlined'
-                                    fullWidth={true}
-                                    className='audio_control button'
-                                    onClick={this.bindStop}><Stop/></Button>
-                        </Grid>
-                    </Grid>
+                    </MuiThemeProvider>
                 </div>
             </React.Fragment>
         );
