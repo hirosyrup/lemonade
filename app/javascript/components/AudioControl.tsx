@@ -1,5 +1,6 @@
 import * as React from "react"
 import AudioPlayer from './../model/AudioPlayer'
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
@@ -39,9 +40,26 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         return (
             <React.Fragment>
                 <div>
-                    <Button variant='outlined' onClick={this.bindPlay} style={{display: this.playButtonDisplay()}}><PlayArrow/></Button>
-                    <Button variant='outlined' onClick={this.bindPause} style={{display: this.pauseButtonDisplay()}}><Pause/></Button>
-                    <Button variant='outlined' onClick={this.bindStop}><Stop/></Button>
+                    <Grid container spacing={16}>
+                        <Grid item xs={8}>
+                            <Button variant='outlined'
+                                    fullWidth={true}
+                                    style={{display: this.playButtonDisplay()}}
+                                    className='button'}
+                                    onClick={this.bindPlay}><PlayArrow/></Button>
+                            <Button variant='outlined'
+                                    fullWidth={true}
+                                    style={{display: this.pauseButtonDisplay()}}
+                                    className='button'
+                                    onClick={this.bindPause}><Pause/></Button>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Button variant='outlined'
+                                    fullWidth={true}
+                                    className='button'
+                                    onClick={this.bindStop}><Stop/></Button>
+                        </Grid>
+                    </Grid>
                 </div>
             </React.Fragment>
         );
