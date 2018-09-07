@@ -1,5 +1,8 @@
 import * as React from "react"
 import axios from "./AxiosDefault";
+import Button from '@material-ui/core/Button';
+import Theme from './../model/theme'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 interface UploadProps {
     didUploaded: (() => void) | null,
@@ -15,7 +18,9 @@ interface HTMLInputEvent extends Event {
 }
 
 class Upload extends React.Component<UploadProps, UploadState> {
-    readonly bindHandleChange: () => void
+    readonly bindHandleChange: () => void;
+    readonly bindHandleClick: () => void;
+    private inputFileTagName: string;
 
     constructor(props: UploadProps) {
         super(props)
@@ -23,6 +28,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
             indicator_display: 'none',
         }
         this.bindHandleChange = this.handleChange.bind(this);
+        this.bindHandleClick = this.handleClick.bind(this);
+        this.inputFileTagName = Math.random().toString(36);
     }
 
     handleChange = (e?: HTMLInputEvent) => {
@@ -54,11 +61,15 @@ class Upload extends React.Component<UploadProps, UploadState> {
     render() {
         return (
             <React.Fragment>
-                <input type='file' name='song' style={{display: 'none'}} onChange={this.bindHandleChange}/>
-                <div>
-                    <input type='button' value='file select' onClick={this.handleClick}/>
-                    <img src='assets/indicator.gif' style={{display: this.state.indicator_display}}/>
-                </div>
+                <MuiThemeProvider theme={Theme}>
+                    <input type='file' name={this.inputFileTagName} style={{display: 'none'}} onChange={this.bindHandleChange}/>
+                    <div>
+                        <Button variant='outlined'
+                                color={"primary"}
+                                onClick={this.bindHandleClick}>file select</Button>
+                        <img src='assets/indicator.gif' style={{display: this.state.indicator_display}}/>
+                    </div>
+                </MuiThemeProvider>
             </React.Fragment>
         );
     }
@@ -72,7 +83,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
     }
 
     handleClick() {
-        document.getElementsByName("song")[0].click();
+        document.getElementsByName(this.inputFileTagName)[0].click();
     }
 }
 

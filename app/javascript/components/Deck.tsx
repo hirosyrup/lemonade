@@ -8,6 +8,7 @@ interface DeckProps {
 }
 
 interface DeckState {
+    listUpdate: number;
 }
 
 class Deck extends React.Component<DeckProps, DeckState> {
