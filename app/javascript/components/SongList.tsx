@@ -61,9 +61,9 @@ class SongList extends React.Component<SongListProps, SongListState> {
                             </Typography>
                         </Grid>
                     </Grid>
-                    <div className='scroll_box'>
+                    <Grid className='scroll_box'>
                         <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
-                    </div>
+                    </Grid>
                 </div>
             </React.Fragment>
         );
