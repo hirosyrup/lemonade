@@ -8,6 +8,8 @@ import ListData from "../model/data/ListData";
 import ListStrategy from "../model/strategy/ListStrategy";
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 
 interface SongListProps {
     didSelectSong: (songData: SongData) => void,
@@ -45,10 +47,20 @@ class SongList extends React.Component<SongListProps, SongListState> {
         return (
             <React.Fragment>
                 <div className='song_list_box'>
-                    <Button color={"primary"}
-                            style={{visibility: this.backButtonHidden()}}
-                            onClick={this.bindDidClickBack}><KeyboardArrowLeft/></Button>
-                    <span className='song_list_title'>{this.state.strategy.title()}</span>
+                    <Grid container spacing={16}
+                          alignItems={'baseline'}>
+                        <Grid item xs={2}>
+                            <Button color={"primary"}
+                                    style={{visibility: this.backButtonHidden()}}
+                                    onClick={this.bindDidClickBack}><KeyboardArrowLeft/></Button>
+                        </Grid>
+                        <Grid item xs={10}>
+                            <Typography color={"primary"}
+                                        align={'center'}>
+                                {this.state.strategy.title()}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     <div className='scroll_box'>
                         <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
                     </div>
