@@ -46,7 +46,7 @@ class SongList extends React.Component<SongListProps, SongListState> {
     render() {
         return (
             <React.Fragment>
-                <div className='song_list_box'>
+                <div className='song_list list_box'>
                     <Grid container spacing={16}
                           alignItems={'baseline'}>
                         <Grid item xs={2}>
@@ -61,7 +61,7 @@ class SongList extends React.Component<SongListProps, SongListState> {
                             </Typography>
                         </Grid>
                     </Grid>
-                    <Grid className='scroll_box'>
+                    <Grid className='song_list scroll_box'>
                         <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
                     </Grid>
                 </div>

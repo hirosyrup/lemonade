@@ -1,0 +1,10 @@
+.song_list {
+  &.list_box {
+    margin-top: 10px;
+  }
+
+  &.scroll_box {
+    height: 300px;
+    overflow: scroll;
+  }
+}
