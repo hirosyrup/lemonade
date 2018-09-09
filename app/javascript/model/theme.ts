@@ -9,4 +9,8 @@ export default createMuiTheme({
             contrastText: '#76d58d',
         }
     },
+    typography: {
+        fontWeightMedium: 300,
+        fontWeightRegular: 300,
+    },
 });
