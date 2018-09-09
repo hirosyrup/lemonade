@@ -6,6 +6,8 @@ import AlbumListStrategy from "../model/strategy/AlbumListStrategy";
 import SongListStrategy from "../model/strategy/SongListStrategy";
 import ListData from "../model/data/ListData";
 import ListStrategy from "../model/strategy/ListStrategy";
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
 interface SongListProps {
     didSelectSong: (songData: SongData) => void,
@@ -43,8 +45,9 @@ class SongList extends React.Component<SongListProps, SongListState> {
         return (
             <React.Fragment>
                 <div className='song_list_box'>
-                    <input type='button' value='back' onClick={this.bindDidClickBack}
-                           style={{visibility: this.backButtonHidden()}}/>
+                    <Button color={"primary"}
+                            style={{visibility: this.backButtonHidden()}}
+                            onClick={this.bindDidClickBack}><KeyboardArrowLeft/></Button>
                     <span className='song_list_title'>{this.state.strategy.title()}</span>
                     <div className='scroll_box'>
                         <List datas={this.state.strategy.createListData()} didClickRow={this.bindDidClickRow}/>
