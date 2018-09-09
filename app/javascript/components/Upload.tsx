@@ -1,8 +1,6 @@
 import * as React from "react"
 import axios from "./AxiosDefault";
 import Button from '@material-ui/core/Button';
-import Theme from './../model/theme'
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 interface UploadProps {
     didUploaded: (() => void) | null,
@@ -61,15 +59,14 @@ class Upload extends React.Component<UploadProps, UploadState> {
     render() {
         return (
             <React.Fragment>
-                <MuiThemeProvider theme={Theme}>
-                    <input type='file' name={this.inputFileTagName} style={{display: 'none'}} onChange={this.bindHandleChange}/>
-                    <div>
-                        <Button variant='outlined'
-                                color={"primary"}
-                                onClick={this.bindHandleClick}>file select</Button>
-                        <img src='assets/indicator.gif' style={{display: this.state.indicator_display}}/>
-                    </div>
-                </MuiThemeProvider>
+                <input type='file' name={this.inputFileTagName} style={{display: 'none'}}
+                       onChange={this.bindHandleChange}/>
+                <div>
+                    <Button variant='outlined'
+                            color={"primary"}
+                            onClick={this.bindHandleClick}>file select</Button>
+                    <img src='assets/indicator.gif' style={{display: this.state.indicator_display}}/>
+                </div>
             </React.Fragment>
         );
     }

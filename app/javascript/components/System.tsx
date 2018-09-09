@@ -2,6 +2,8 @@ import * as React from "react"
 import axios from "./AxiosDefault";
 import Deck from './Deck';
 import Grid from '@material-ui/core/Grid';
+import Theme from './../model/theme'
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 interface SystemProps {
 }
@@ -25,16 +27,18 @@ class System extends React.Component<SystemProps, SystemState> {
     render() {
         return (
             <React.Fragment>
-                <Grid container spacing={16}>
-                    <Grid item xs={4}>
-                        {this.state.uuid && <Deck uuid={this.state.uuid}/>}
+                <MuiThemeProvider theme={Theme}>
+                    <Grid container spacing={16}>
+                        <Grid item xs={4}>
+                            {this.state.uuid && <Deck uuid={this.state.uuid}/>}
+                        </Grid>
+                        <Grid item xs={4}>
+                        </Grid>
+                        <Grid item xs={4}>
+                            {this.state.uuid && <Deck uuid={this.state.uuid}/>}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={4}>
-                    </Grid>
-                    <Grid item xs={4}>
-                        {this.state.uuid && <Deck uuid={this.state.uuid}/>}
-                    </Grid>
-                </Grid>
+                </MuiThemeProvider>
             </React.Fragment>
         );
     }
