@@ -1,0 +1,9 @@
+.knob {
+  &.arc_position {
+    position: absolute;
+  }
+
+  &.gauge_placeholder {
+    opacity: 0.3;
+  }
+}

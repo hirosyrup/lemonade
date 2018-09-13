@@ -2,6 +2,7 @@ import * as React from "react"
 import SongList from './SongList'
 import Upload from './Upload'
 import AudioControl from "./AudioControl";
+import Knob from "./Knob";
 
 interface DeckProps {
     uuid: string;
@@ -30,6 +31,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
                     <AudioControl ref={ref => this.bindAudioPlayerRef = ref}/>
+                    <Knob />
                 </div>
             </React.Fragment>
         );

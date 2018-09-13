@@ -18,7 +18,7 @@ interface HTMLInputEvent extends Event {
 class Upload extends React.Component<UploadProps, UploadState> {
     readonly bindHandleChange: () => void;
     readonly bindHandleClick: () => void;
-    private inputFileTagName: string;
+    private readonly inputFileTagName: string;
 
     constructor(props: UploadProps) {
         super(props)
