@@ -1,7 +1,6 @@
 import * as React from "react"
 import Arc from "./Arc"
 import Theme from './../model/theme'
-import {convertHexToRGB} from "@material-ui/core/es/styles/colorManipulator";
 
 interface KnobProps {
 }

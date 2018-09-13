@@ -17,11 +17,15 @@ interface ArcState {
 
 class Arc extends React.Component<ArcProps, ArcState> {
     private readonly canvasId: string;
+    private readonly size: number;
+    private readonly styleSize: number;
 
     constructor(props: ArcProps) {
         super(props)
 
         this.canvasId = Math.random().toString(36);
+        this.styleSize = (this.props.center + this.props.lineWidth) * 2;
+        this.size = this.styleSize * 2; // for Retina
     }
 
     componentDidMount() {
@@ -31,18 +35,19 @@ class Arc extends React.Component<ArcProps, ArcState> {
     render() {
         return (
             <React.Fragment>
-                <canvas id={this.canvasId} />
+                <canvas id={this.canvasId}
+                style={{width: this.styleSize, height: this.styleSize}}/>
             </React.Fragment>
         );
     }
 
     draw() {
         const canvas = document.getElementById(this.canvasId) as HTMLCanvasElement;
-        const size = (this.props.center + this.props.lineWidth) * 2;
-        canvas.width = size;
-        canvas.height = size;
+        canvas.width = this.size;
+        canvas.height = this.size;
         const ctx = canvas.getContext('2d');
         if (ctx) {
+            ctx.scale(2.0, 2.0); // for Retina
             ctx.lineWidth = this.props.lineWidth;
             if (this.props.fillStyle) {ctx.fillStyle = this.props.fillStyle;}
             if (this.props.strokeStyle) {ctx.strokeStyle = this.props.strokeStyle;}
