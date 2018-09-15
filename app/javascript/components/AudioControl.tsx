@@ -85,6 +85,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     }
 
     setSource(url: string) {
+        this.stop();
         this.player.setSource(url)
             .then((result) => {
                 if (result) {
