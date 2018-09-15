@@ -5,6 +5,7 @@ class AudioPlayer {
     private source: AudioSource;
     private _playing: boolean;
     private context: AudioContext;
+    private isReverse: boolean;
     playing(): boolean { return this._playing; };
 
     constructor() {
@@ -14,6 +15,7 @@ class AudioPlayer {
         this.source = new AudioSource(this.context, this.context.destination);
         this.source.plyaEnded = this.onEnded.bind(this);
         this._playing = false;
+        this.isReverse = false;
     }
 
     resume() {
@@ -37,6 +39,13 @@ class AudioPlayer {
 
         this.source.stop();
         this.changePlayingStatus(false);
+    }
+
+    reverse() {
+        if (!this.source) return;
+
+        this.isReverse = !this.isReverse;
+        this.source.setReverse(this.isReverse);
     }
 
     setSource(url: string) {

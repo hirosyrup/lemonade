@@ -17,6 +17,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     private readonly bindPlay: () => void;
     private readonly bindPause: () => void;
     private readonly bindStop: () => void;
+    private readonly bindReverse: () => void;
     private player: AudioPlayer;
 
     constructor(props: AudioControlProps) {
@@ -29,6 +30,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         this.bindPlay = this.play.bind(this);
         this.bindPause = this.pause.bind(this);
         this.bindStop = this.stop.bind(this);
+        this.bindReverse = this.reverse.bind(this);
     }
 
     componentDidMount() {
@@ -41,7 +43,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
             <React.Fragment>
                 <div>
                     <Grid container spacing={16}>
-                        <Grid item xs={8}>
+                        <Grid item xs={4}>
                             <Button variant='outlined'
                                     fullWidth={true}
                                     color={"primary"}
@@ -54,6 +56,13 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
                                     className='audio_control button'
                                     style={{display: this.pauseButtonDisplay()}}
                                     onClick={this.bindPause}><Pause/></Button>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <Button variant='outlined'
+                                    fullWidth={true}
+                                    color={"primary"}
+                                    className='audio_control button'
+                                    onClick={this.bindReverse}>rev</Button>
                         </Grid>
                         <Grid item xs={4}>
                             <Button variant='outlined'
@@ -104,6 +113,10 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
 
     stop() {
         this.player.stop();
+    }
+
+    reverse() {
+        this.player.reverse();
     }
 
     didChangePlayStatus() {

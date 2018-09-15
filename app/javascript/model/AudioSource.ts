@@ -1,18 +1,21 @@
 class AudioSource {
     plyaEnded: (() => void) | null;
     private source: AudioBufferSourceNode | null;
-    private _playing: boolean;
-    playing(): boolean { return this._playing; };
+    private isStarted: boolean;
+    private isReverse: boolean;
     private context: AudioContext;
     private audioBuffer: AudioBuffer | null;
+    private currentPlayTime: number;
+    private previousContextTime: number;
     private readonly destinationNode: AudioNode;
 
     constructor(context: AudioContext, destinationNode: AudioNode) {
         this.plyaEnded = null;
         this.source = null;
-        this._playing = false;
+        this.isStarted = false;
         this.context = context;
         this.audioBuffer = null;
+        this.currentPlayTime = 0.0;
         this.destinationNode = destinationNode
         this.setupNode();
     }
@@ -22,7 +25,9 @@ class AudioSource {
 
         if (this.source && !this.source.buffer) {
             this.source.buffer = this.audioBuffer;
+            this.previousContextTime = this.context.currentTime;
             this.source.start();
+            this.isStarted = true;
         }
     }
 
@@ -31,6 +36,27 @@ class AudioSource {
         if (!this.source.buffer) return;
 
         this.resetSourceConnect();
+        this.isStarted = false;
+    }
+
+    setReverse(isReverse: boolean) {
+        if (!this.source) return;
+        if (!this.audioBuffer) return;
+
+        this.isReverse = isReverse;
+
+        let startTime = 0.0;
+        if (this.isReverse) {
+            startTime = (this.audioBuffer.length / this.audioBuffer.sampleRate) - this.currentPlayTime;
+        } else {
+            startTime = this.currentPlayTime;
+        }
+        for (let i = 0; i < this.audioBuffer.numberOfChannels; ++i) {
+            Array.prototype.reverse.call( this.audioBuffer.getChannelData(i) );
+        }
+        this.resetSourceConnect();
+        this.source.buffer = this.audioBuffer;
+        this.source.start(0, startTime);
     }
 
     setSource(url: string) {
@@ -46,6 +72,7 @@ class AudioSource {
                 .then((buffer: AudioBuffer) => {
                     this.resetSourceConnect();
                     this.audioBuffer = buffer;
+                    this.currentPlayTime = 0.0;
                     resolve(true)
                 })
         });
@@ -67,6 +94,22 @@ class AudioSource {
 
     setupNode() {
         this.resetSourceConnect();
+        setInterval(() => {
+            this.updateTime();
+        }, 10);
+    }
+
+    updateTime() {
+        if (!this.isStarted) return;
+
+        const current = this.context.currentTime;
+        const diff = current - this.previousContextTime;
+        if (this.isReverse) {
+            this.currentPlayTime -= diff;
+        } else {
+            this.currentPlayTime += diff;
+        }
+        this.previousContextTime = current;
     }
 
     getAudioBuffer(url: string) {
