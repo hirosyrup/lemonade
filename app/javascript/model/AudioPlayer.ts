@@ -41,7 +41,7 @@ class AudioPlayer {
 
     setSource(url: string) {
         return new Promise((resolve) => {
-            this.source.getAudioBuffer(url)
+            this.source.setSource(url)
                 .then((result) => {
                 resolve(result);
             })
