@@ -63,6 +63,12 @@ class AudioSource {
         this.source.start(0, startTime);
     }
 
+    setPlaybackRate(playbackRate: number) {
+        if (!this.source) return;
+
+        this.source.playbackRate.value = playbackRate;
+    }
+
     setSource(url: string) {
         return new Promise((resolve) => {
             if (!url) {

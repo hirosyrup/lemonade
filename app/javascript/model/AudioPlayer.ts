@@ -5,8 +5,10 @@ class AudioPlayer {
     private source: AudioSource;
     private _playing: boolean;
     private context: AudioContext;
-    private isReverse: boolean;
     playing(): boolean { return this._playing; };
+    private sin: number[];
+    private timer: NodeJS.Timer | number | undefined;
+    private currentIndex: number;
 
     constructor() {
         this.didChangePlayStatus = null;
@@ -15,7 +17,108 @@ class AudioPlayer {
         this.source = new AudioSource(this.context, this.context.destination);
         this.source.plyaEnded = this.onEnded.bind(this);
         this._playing = false;
-        this.isReverse = false;
+        this.sin = [0,
+            -0.1253332336,
+            -0.2486898872,
+            -0.3681245527,
+            -0.4817536741,
+            -0.5877852523,
+            -0.6845471059,
+            -0.7705132428,
+            -0.8443279255,
+            -0.9048270525,
+            -0.9510565163,
+            -0.9822872507,
+            -0.9980267284,
+            -0.9980267284,
+            -0.9822872507,
+            -0.9510565163,
+            -0.9048270525,
+            -0.8443279255,
+            -0.7705132428,
+            -0.6845471059,
+            -0.5877852523,
+            -0.4817536741,
+            -0.3681245527,
+            -0.2486898872,
+            -0.1253332336,
+            0,
+            0.1253332336,
+            0.2486898872,
+            0.3681245527,
+            0.4817536741,
+            0.5877852523,
+            0.6845471059,
+            0.7705132428,
+            0.8443279255,
+            0.9048270525,
+            0.9510565163,
+            0.9822872507,
+            0.9980267284,
+            0.9980267284,
+            0.9822872507,
+            0.9510565163,
+            0.9048270525,
+            0.8443279255,
+            0.7705132428,
+            0.6845471059,
+            0.5877852523,
+            0.4817536741,
+            0.3681245527,
+            0.2486898872,
+            0.1253332336,
+            0,
+            -0.1253332336,
+            -0.2486898872,
+            -0.3681245527,
+            -0.4817536741,
+            -0.5877852523,
+            -0.6845471059,
+            -0.7705132428,
+            -0.8443279255,
+            -0.9048270525,
+            -0.9510565163,
+            -0.9822872507,
+            -0.9980267284,
+            -0.9980267284,
+            -0.9822872507,
+            -0.9510565163,
+            -0.9048270525,
+            -0.8443279255,
+            -0.7705132428,
+            -0.6845471059,
+            -0.5877852523,
+            -0.4817536741,
+            -0.3681245527,
+            -0.2486898872,
+            -0.1253332336,
+            0,
+            0.1253332336,
+            0.2486898872,
+            0.3681245527,
+            0.4817536741,
+            0.5877852523,
+            0.6845471059,
+            0.7705132428,
+            0.8443279255,
+            0.9048270525,
+            0.9510565163,
+            0.9822872507,
+            0.9980267284,
+            0.9980267284,
+            0.9822872507,
+            0.9510565163,
+            0.9048270525,
+            0.8443279255,
+            0.7705132428,
+            0.6845471059,
+            0.5877852523,
+            0.4817536741,
+            0.3681245527,
+            0.2486898872,
+            0.1253332336];
+        this.timer = undefined;
+        this.currentIndex = 0;
     }
 
     resume() {
@@ -43,9 +146,29 @@ class AudioPlayer {
 
     reverse() {
         if (!this.source) return;
+        if (this.timer !== undefined) return;
 
-        this.isReverse = !this.isReverse;
-        this.source.setReverse(this.isReverse);
+        this.timer = setInterval(() => {
+            this.updatePitch();
+        }, 10);
+    }
+
+    updatePitch() {
+        const value = this.sin[this.currentIndex];
+        const isReverse = value < 0;
+        this.source.setReverse(isReverse);
+        const pitch = (1.0 - Math.abs(value)) + 0.5;
+        this.source.setPlaybackRate(pitch);
+
+        ++this.currentIndex;
+
+        if (this.sin.length == this.currentIndex) {
+            this.currentIndex = 0;
+            clearInterval(this.timer);
+            this.source.setReverse(false);
+            this.source.setPlaybackRate(1.0);
+            this.timer = undefined;
+        }
     }
 
     setSource(url: string) {
