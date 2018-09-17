@@ -22,7 +22,7 @@ class List extends React.Component<ListProps, ListState> {
                 <MaterialList>
                         {this.props.datas.map(data => {
                             return (
-                                <div>
+                                <div key={Math.random().toString(36)}>
                                     <ListItem button
                                               onClick={() => this.props.didClickRow(data)}>
                                         <ListItemText><Typography

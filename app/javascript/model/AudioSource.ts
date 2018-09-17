@@ -5,6 +5,7 @@ class AudioSource {
     private isReverse: boolean;
     private context: AudioContext;
     private audioBuffer: AudioBuffer | null;
+    private reverseAudioBuffer: AudioBuffer | null;
     private currentPlayTime: number;
     private previousContextTime: number;
     private readonly destinationNode: AudioNode;
@@ -15,6 +16,7 @@ class AudioSource {
         this.isStarted = false;
         this.context = context;
         this.audioBuffer = null;
+        this.reverseAudioBuffer = null;
         this.currentPlayTime = 0.0;
         this.destinationNode = destinationNode
         this.setupNode();
@@ -37,25 +39,27 @@ class AudioSource {
 
         this.resetSourceConnect();
         this.isStarted = false;
+        this.isReverse = false;
+        this.currentPlayTime = 0.0;
     }
 
     setReverse(isReverse: boolean) {
         if (!this.source) return;
         if (!this.audioBuffer) return;
+        if (this.isReverse === isReverse) return;
 
         this.isReverse = isReverse;
+
+        this.resetSourceConnect();
 
         let startTime = 0.0;
         if (this.isReverse) {
             startTime = (this.audioBuffer.length / this.audioBuffer.sampleRate) - this.currentPlayTime;
+            this.source.buffer = this.reverseAudioBuffer;
         } else {
             startTime = this.currentPlayTime;
+            this.source.buffer = this.audioBuffer;
         }
-        for (let i = 0; i < this.audioBuffer.numberOfChannels; ++i) {
-            Array.prototype.reverse.call( this.audioBuffer.getChannelData(i) );
-        }
-        this.resetSourceConnect();
-        this.source.buffer = this.audioBuffer;
         this.source.start(0, startTime);
     }
 
@@ -71,7 +75,7 @@ class AudioSource {
             this.getAudioBuffer(url)
                 .then((buffer: AudioBuffer) => {
                     this.resetSourceConnect();
-                    this.audioBuffer = buffer;
+                    this.updateAudioBuffer(buffer);
                     this.currentPlayTime = 0.0;
                     resolve(true)
                 })
@@ -134,6 +138,15 @@ class AudioSource {
             req.open('GET', url, true);
             req.send();
         });
+    }
+
+    updateAudioBuffer(buffer: AudioBuffer) {
+        this.audioBuffer = buffer
+        this.reverseAudioBuffer = this.context.createBuffer(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
+        for (let i = 0; i < buffer.numberOfChannels; ++i) {
+            this.reverseAudioBuffer.copyToChannel(buffer.getChannelData(i), i, 0);
+            Array.prototype.reverse.call( this.reverseAudioBuffer.getChannelData(i) );
+        }
     }
 
     onEnded() {
