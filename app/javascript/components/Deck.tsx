@@ -1,6 +1,7 @@
 import * as React from "react"
 import SongList from './SongList'
 import Upload from './Upload'
+import Turntable from "./Turntable";
 import AudioControl from "./AudioControl";
 import Knob from "./Knob";
 
@@ -30,6 +31,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
                 <div className='board-row'>
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
+                    <Turntable/>
                     <AudioControl ref={ref => this.bindAudioPlayerRef = ref}/>
                     <Knob />
                 </div>
