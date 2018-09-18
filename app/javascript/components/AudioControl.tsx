@@ -7,6 +7,7 @@ import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
 
 interface AudioControlProps {
+    didChangePlayStatus: (isPlaying: boolean) => void,
 }
 
 interface AudioControlState {
@@ -121,6 +122,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
 
     didChangePlayStatus() {
         this.setState({changePlayStatus: Math.random()});
+        this.props.didChangePlayStatus(this.player.playing());
     }
 }
 

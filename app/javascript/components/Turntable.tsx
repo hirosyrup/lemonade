@@ -10,15 +10,15 @@ interface TurntableState {
 class Turntable extends React.Component<TurntableProps, TurntableState> {
     private readonly bindOnWheel: (e: any) => void;
     private readonly deltaCoef: number;
-    private isWheel: boolean;
-    private timer: NodeJS.Timer | null;
+    private inAction: boolean;
+    private timer: number | NodeJS.Timer | null;
 
     constructor(props: TurntableProps) {
         super(props);
 
         this.bindOnWheel = this.onWheel.bind(this);
         this.deltaCoef = 0.5;
-        this.isWheel = false;
+        this.inAction = false;
         this.timer = null;
         this.state = {
             rotate: 0,
@@ -37,9 +37,19 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
         );
     }
 
+    setAction(action: boolean) {
+        if (this.inAction === action) return;
+        this.inAction = action;
+        if (this.inAction) {
+            this.updateRotation();
+        }
+    }
+
     updateRotation() {
+        if (!this.inAction) return;
+
         if (this.timer) {
-            clearTimeout(this.timer);
+            clearTimeout(this.timer as number);
         }
         this.timer = setTimeout(() => {
             this.setState({rotate: this.state.rotate + 2});
@@ -49,6 +59,7 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
 
     onWheel(e: WheelEvent) {
         e.preventDefault();
+        if (!this.inAction) return;
         this.setState({rotate: this.state.rotate + e.deltaY * this.deltaCoef});
         this.updateRotation();
     }
