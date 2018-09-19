@@ -14,14 +14,13 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
     private readonly playbackCoef: number;
     private inAction: boolean;
     private timer: number | NodeJS.Timer | null;
-    private previousDiffAngle: number;
 
     constructor(props: TurntableProps) {
         super(props);
 
         this.bindOnWheel = this.onWheel.bind(this);
-        this.deltaCoef = 0.5;
-        this.playbackCoef = 0.05;
+        this.deltaCoef = 0.06;
+        this.playbackCoef = 0.4;
         this.inAction = false;
         this.timer = null;
         this.state = {
@@ -58,7 +57,6 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
         this.timer = setTimeout(() => {
             this.setState({rotate: this.state.rotate + 2});
             this.updateRotation();
-            this.previousDiffAngle = 0.0;
             this.props.didUpdatePlaybackRate(1.0, false);
         }, 20);
     }
@@ -66,12 +64,11 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
     onWheel(e: WheelEvent) {
         e.preventDefault();
         if (!this.inAction) return;
-        const diff = e.deltaY * this.deltaCoef;
-        this.setState({rotate: this.state.rotate + diff});
+        const angle = -e.deltaY * this.deltaCoef;
+        this.setState({rotate: this.state.rotate + angle});
         this.updateRotation();
-        const playbackRate = Math.abs(diff * 0.15 + this.previousDiffAngle * 0.85); // 慣性をつける
-        this.props.didUpdatePlaybackRate(playbackRate * this.playbackCoef, diff < 0);
-        this.previousDiffAngle = diff;
+        const playbackRateWithCoef = Math.log(Math.abs(angle * this.playbackCoef) + 1.0);
+        this.props.didUpdatePlaybackRate(Math.min(Math.max(playbackRateWithCoef, 0.25), 4.0), angle < 0);
     }
 }
 
