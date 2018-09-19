@@ -17,6 +17,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
     private readonly bindDidUploaded: () => void;
     private readonly bindDidSelectSong: () => void;
     private readonly bindDidChangePlayStatus: (isPlaying: boolean) => void;
+    private readonly bindDidUpdatePlaybackRate: (playbackRate: number, isReverse: boolean) => void;
     private bindAudioPlayerRef: AudioControl | null;
     private bindTurntableRef: Turntable | null;
 
@@ -25,6 +26,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
         this.bindDidUploaded = this.didUploaded.bind(this);
         this.bindDidSelectSong = this.didSelectSong.bind(this);
         this.bindDidChangePlayStatus = this.didChangePlayStatus.bind(this);
+        this.bindDidUpdatePlaybackRate = this.didUpdatePlaybackRate.bind(this);
         this.bindAudioPlayerRef = null;
         this.bindTurntableRef = null;
     }
@@ -35,7 +37,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
                 <div className='board-row'>
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
-                    <Turntable ref={ref => this.bindTurntableRef = ref}/>
+                    <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
                     <AudioControl ref={ref => this.bindAudioPlayerRef = ref} didChangePlayStatus={this.bindDidChangePlayStatus}/>
                     <Knob />
                 </div>
@@ -57,6 +59,12 @@ class Deck extends React.Component<DeckProps, DeckState> {
         if (!this.bindTurntableRef) return;
 
         this.bindTurntableRef.setAction(isPlaying);
+    }
+
+    didUpdatePlaybackRate(playbackRate: number, isReverse: boolean) {
+        if (!this.bindAudioPlayerRef) return;
+        this.bindAudioPlayerRef.setReverse(isReverse);
+        this.bindAudioPlayerRef.setPlaybackRate(playbackRate);
     }
 }
 
