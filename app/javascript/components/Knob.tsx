@@ -1,9 +1,11 @@
 import * as React from "react"
 import Arc from "./Arc"
 import Theme from './../model/theme'
+import Typography from '@material-ui/core/Typography';
 
 interface KnobProps {
     initialValue: number;
+    title: string;
 }
 
 
@@ -28,6 +30,7 @@ class Knob extends React.Component<KnobProps, KnobState> {
     private readonly bindOnMouseOut: () => void;
     private prevStartY: number;
     private isMousePressed: boolean;
+    private readonly width: number;
 
     constructor(props: KnobProps) {
         super(props);
@@ -48,6 +51,7 @@ class Knob extends React.Component<KnobProps, KnobState> {
         this.bindOnMouseOut = this.onMouseOut.bind(this);
         this.prevStartY = 0.0;
         this.isMousePressed = false;
+        this.width = (this.lineWidth + this.outsideRadius) * 2.0;
 
         this.state = {
             currentValue: this.props.initialValue,
@@ -57,7 +61,7 @@ class Knob extends React.Component<KnobProps, KnobState> {
     render() {
         return (
             <React.Fragment>
-                <div className='knob arc_position'>
+                <div className='knob arc_position' style={{maxWidth: this.width}}>
                     <Arc lineWidth={this.lineWidth}
                          strokeStyle={Theme.palette.primary.main}
                          fillStyle={null}
@@ -66,8 +70,12 @@ class Knob extends React.Component<KnobProps, KnobState> {
                          startAngle={this.startAngle}
                          endAngle={this.endAngle}
                          center={this.outsideRadius}/>
+                    <Typography color={'primary'}
+                        className='knob title'>
+                        {this.props.title}
+                    </Typography>
                 </div>
-                <div className='knob arc_position gauge_placeholder'>
+                <div className='knob arc_position gauge_placeholder' style={{maxWidth: this.width}}>
                     <Arc lineWidth={this.lineWidth}
                          strokeStyle={Theme.palette.primary.main}
                          fillStyle={Theme.palette.primary.main}
@@ -78,6 +86,7 @@ class Knob extends React.Component<KnobProps, KnobState> {
                          center={this.outsideRadius} />
                 </div>
                 <div className='knob arc_position'
+                     style={{maxWidth: this.width}}
                      onWheel={this.bindOnWheel}
                      onMouseDown={this.bindOnMouseDown}
                      onMouseMove={this.bindOnMouseMove}

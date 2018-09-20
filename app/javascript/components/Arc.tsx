@@ -40,7 +40,7 @@ class Arc extends React.Component<ArcProps, ArcState> {
         return (
             <React.Fragment>
                 <canvas id={this.canvasId}
-                style={{width: this.styleSize, height: this.styleSize}}/>
+                        className='arc canvas'/>
             </React.Fragment>
         );
     }
