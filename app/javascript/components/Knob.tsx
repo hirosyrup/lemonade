@@ -20,9 +20,14 @@ class Knob extends React.Component<KnobProps, KnobState> {
     private readonly innerRadiusOffset: number;
     private readonly innerAngleOffset: number;
     private readonly gaugeMax: number;
-    private readonly bindDidDrag: (e: any) => void;
-    private readonly bindDidDragStart: (e: any) => void;
-    private dragStartY: number;
+    private readonly minValue: number;
+    private readonly bindOnWheel: (e: any) => void;
+    private readonly bindOnMouseMove: (e: any) => void;
+    private readonly bindOnMouseDown: (e: any) => void;
+    private readonly bindOnMouseUp: () => void;
+    private readonly bindOnMouseOut: () => void;
+    private prevStartY: number;
+    private isMousePressed: boolean;
 
     constructor(props: KnobProps) {
         super(props);
@@ -35,9 +40,14 @@ class Knob extends React.Component<KnobProps, KnobState> {
         this.innerRadiusOffset = 4.6;
         this.innerAngleOffset = 9;
         this.gaugeMax = 290;
-        this.bindDidDrag = this.onDrag.bind(this);
-        this.bindDidDragStart = this.onDragStart.bind(this);
-        this.dragStartY = 0.0;
+        this.minValue = (2.0 * this.innerAngleOffset) / this.gaugeMax;
+        this.bindOnWheel = this.onWheel.bind(this);
+        this.bindOnMouseMove = this.onMouseMove.bind(this);
+        this.bindOnMouseDown = this.onMouseDown.bind(this);
+        this.bindOnMouseUp = this.onMouseUp.bind(this);
+        this.bindOnMouseOut = this.onMouseOut.bind(this);
+        this.prevStartY = 0.0;
+        this.isMousePressed = false;
 
         this.state = {
             currentValue: this.props.initialValue,
@@ -67,7 +77,12 @@ class Knob extends React.Component<KnobProps, KnobState> {
                          endAngle={this.startAngle + this.gaugeMax - this.innerAngleOffset}
                          center={this.outsideRadius} />
                 </div>
-                <div className='knob arc_position' onDrag={this.bindDidDrag} onDragStart={this.bindDidDragStart} >
+                <div className='knob arc_position'
+                     onWheel={this.bindOnWheel}
+                     onMouseDown={this.bindOnMouseDown}
+                     onMouseMove={this.bindOnMouseMove}
+                     onMouseUp={this.bindOnMouseUp}
+                     onMouseOut={this.bindOnMouseOut}>
                     <Arc lineWidth={this.lineWidth}
                          strokeStyle={Theme.palette.primary.main}
                          fillStyle={Theme.palette.primary.main}
@@ -81,13 +96,35 @@ class Knob extends React.Component<KnobProps, KnobState> {
         );
     }
 
-    onDrag(e: DragEvent) {
-        const diff = e.screenY - this.dragStartY;
-        this.setState({currentValue: diff * 0.1});
+    onWheel(e: WheelEvent) {
+        e.preventDefault();
+        this.updateCurrentValue(-e.deltaY * 0.3);
     }
 
-    onDragStart(e: DragEvent) {
-        this.dragStartY = e.screenY;
+    onMouseMove(e: MouseEvent) {
+        if (!this.isMousePressed) return;
+
+        const diff = this.prevStartY - e.screenY;
+        this.prevStartY = e.screenY;
+        this.updateCurrentValue(diff);
+    }
+
+    onMouseDown(e: MouseEvent) {
+        this.isMousePressed = true;
+        this.prevStartY = e.screenY;
+    }
+
+    onMouseUp() {
+        this.isMousePressed = false;
+    }
+
+    onMouseOut() {
+        this.isMousePressed = false;
+    }
+
+    updateCurrentValue(diffPos: number) {
+        const newCurrentValue = this.state.currentValue + diffPos * 0.015;
+        this.setState({currentValue: Math.max(Math.min(newCurrentValue, 1.0), this.minValue)});
     }
 }
 

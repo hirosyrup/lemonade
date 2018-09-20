@@ -32,6 +32,10 @@ class Arc extends React.Component<ArcProps, ArcState> {
         this.draw();
     }
 
+    componentDidUpdate() {
+        this.draw();
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -43,10 +47,14 @@ class Arc extends React.Component<ArcProps, ArcState> {
 
     draw() {
         const canvas = document.getElementById(this.canvasId) as HTMLCanvasElement;
+
         canvas.width = this.size;
         canvas.height = this.size;
         const ctx = canvas.getContext('2d');
         if (ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (this.props.startAngle === this.props.endAngle) return;
+
             ctx.scale(2.0, 2.0); // for Retina
             ctx.lineWidth = this.props.lineWidth;
             if (this.props.fillStyle) {ctx.fillStyle = this.props.fillStyle;}
