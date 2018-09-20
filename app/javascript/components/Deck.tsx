@@ -39,7 +39,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
                     <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
                     <AudioControl ref={ref => this.bindAudioPlayerRef = ref} didChangePlayStatus={this.bindDidChangePlayStatus}/>
-                    <Knob />
+                    <Knob initialValue={0.5}/>
                 </div>
             </React.Fragment>
         );
