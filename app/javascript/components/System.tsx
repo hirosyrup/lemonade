@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Theme from './../model/theme'
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import AudioGraph from "../model/AudioGraph";
+import Mixer from "./Mixer";
 
 interface SystemProps {
 }
@@ -35,11 +36,12 @@ class System extends React.Component<SystemProps, SystemState> {
         return (
             <React.Fragment>
                 <MuiThemeProvider theme={Theme}>
-                    <Grid container spacing={16}>
+                    <Grid container>
                         <Grid item xs={4}>
                             {this.state.uuid && <Deck uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
                         </Grid>
                         <Grid item xs={4}>
+                            {this.state.uuid && <Mixer/>}
                         </Grid>
                         <Grid item xs={4}>
                             {this.state.uuid && <Deck uuid={this.state.uuid} source={this.rightAudioGraph.audioSource}/>}
