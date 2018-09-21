@@ -10,6 +10,7 @@ class MixerSet {
         this.gainNode = context.createGain();
         this.sourceNode = this.filterNode;
         this.destinationNode = this.gainNode;
+        this.filterNode.frequency.value = 44100.0;
         this.filterNode.connect(this.gainNode);
     }
 }

@@ -1,5 +1,5 @@
 class AudioSource {
-    plyaEnded: (() => void) | null;
+    playEnded: (() => void) | null;
     private source: AudioBufferSourceNode | null;
     private isStarted: boolean;
     private isReverse: boolean;
@@ -11,7 +11,7 @@ class AudioSource {
     private readonly destinationNode: AudioNode;
 
     constructor(context: AudioContext, destinationNode: AudioNode) {
-        this.plyaEnded = null;
+        this.playEnded = null;
         this.source = null;
         this.isStarted = false;
         this.context = context;
@@ -20,6 +20,29 @@ class AudioSource {
         this.currentPlayTime = 0.0;
         this.destinationNode = destinationNode
         this.setupNode();
+    }
+
+    resume() {
+        return new Promise((resolve) => {
+            if (!this.source) {
+                resolve(false);
+            } else {
+                this.start();
+                this.context.resume()
+                    .then(() => {
+                        resolve(true);
+                    });
+            }
+        });
+    }
+
+    pause() {
+        return new Promise((resolve) => {
+            this.context.suspend()
+                .then(() => {
+                    resolve();
+                });
+        });
     }
 
     start() {
@@ -156,8 +179,8 @@ class AudioSource {
     }
 
     onEnded() {
-        if (this.plyaEnded) {
-            this.plyaEnded();
+        if (this.playEnded) {
+            this.playEnded();
         }
     }
 }

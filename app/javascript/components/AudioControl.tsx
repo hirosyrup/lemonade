@@ -1,13 +1,14 @@
 import * as React from "react"
-import AudioPlayer from './../model/AudioPlayer'
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Pause from '@material-ui/icons/Pause';
 import Stop from '@material-ui/icons/Stop';
+import AudioSource from "../model/AudioSource";
 
 interface AudioControlProps {
     didChangePlayStatus: (isPlaying: boolean) => void,
+    source: AudioSource,
 }
 
 interface AudioControlState {
@@ -18,7 +19,8 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     private readonly bindPlay: () => void;
     private readonly bindPause: () => void;
     private readonly bindStop: () => void;
-    private player: AudioPlayer;
+    private readonly source: AudioSource;
+    private playing: boolean;
 
     constructor(props: AudioControlProps) {
         super(props)
@@ -30,11 +32,9 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         this.bindPlay = this.play.bind(this);
         this.bindPause = this.pause.bind(this);
         this.bindStop = this.stop.bind(this);
-    }
-
-    componentDidMount() {
-        this.player = new AudioPlayer();
-        this.player.didChangePlayStatus = this.didChangePlayStatus.bind(this);
+        this.source = this.props.source;
+        this.source.playEnded = this.onEnded.bind(this);
+        this.playing = false;
     }
 
     render() {
@@ -70,7 +70,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     }
 
     playButtonDisplay() {
-        if (!this.player || !this.player.playing()) {
+        if (!this.playing) {
             return 'inline-block';
         } else {
             return 'none';
@@ -78,7 +78,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     }
 
     pauseButtonDisplay() {
-        if (this.player && this.player.playing()) {
+        if (this.playing) {
             return 'inline-block';
         } else {
             return 'none';
@@ -87,7 +87,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
 
     setSource(url: string) {
         this.stop();
-        this.player.setSource(url)
+        this.source.setSource(url)
             .then((result) => {
                 if (result) {
                     this.play();
@@ -96,28 +96,46 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
     }
 
     play() {
-        this.player.resume();
+        if (this.playing) return;
+
+        this.source.resume()
+            .then((result) => {
+                if (result) {
+                    this.changePlayingStatus(true);
+                }
+            });
     }
 
     pause() {
-        this.player.pause();
+        if (!this.playing) return;
+
+        this.source.pause()
+            .then(() => {
+            this.changePlayingStatus(false);
+        });
     }
 
     stop() {
-        this.player.stop();
+        this.source.stop();
+        this.changePlayingStatus(false);
     }
 
     setReverse(isReverse: boolean) {
-        this.player.setReverse(isReverse);
+        this.source.setReverse(isReverse);
     }
 
     setPlaybackRate(playbackRate: number) {
-        this.player.setPlaybackRate(playbackRate);
+        this.source.setPlaybackRate(playbackRate);
     }
 
-    didChangePlayStatus() {
+    changePlayingStatus(isPlay: boolean) {
+        this.playing = isPlay;
         this.setState({changePlayStatus: Math.random()});
-        this.props.didChangePlayStatus(this.player.playing());
+        this.props.didChangePlayStatus(this.playing);
+    }
+
+    onEnded() {
+        this.stop();
     }
 }
 

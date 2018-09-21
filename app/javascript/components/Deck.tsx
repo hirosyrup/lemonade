@@ -4,13 +4,15 @@ import Upload from './Upload'
 import Turntable from "./Turntable";
 import AudioControl from "./AudioControl";
 import Knob from "./Knob";
+import AudioSource from "../model/AudioSource";
 
 interface DeckProps {
-    uuid: string;
+    uuid: string,
+    source: AudioSource,
 }
 
 interface DeckState {
-    listUpdate: number;
+    listUpdate: number,
 }
 
 class Deck extends React.Component<DeckProps, DeckState> {
@@ -18,7 +20,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
     private readonly bindDidSelectSong: () => void;
     private readonly bindDidChangePlayStatus: (isPlaying: boolean) => void;
     private readonly bindDidUpdatePlaybackRate: (playbackRate: number, isReverse: boolean) => void;
-    private bindAudioPlayerRef: AudioControl | null;
+    private bindAudioControlRef: AudioControl | null;
     private bindTurntableRef: Turntable | null;
 
     constructor(props: DeckProps) {
@@ -27,7 +29,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
         this.bindDidSelectSong = this.didSelectSong.bind(this);
         this.bindDidChangePlayStatus = this.didChangePlayStatus.bind(this);
         this.bindDidUpdatePlaybackRate = this.didUpdatePlaybackRate.bind(this);
-        this.bindAudioPlayerRef = null;
+        this.bindAudioControlRef = null;
         this.bindTurntableRef = null;
     }
 
@@ -38,7 +40,9 @@ class Deck extends React.Component<DeckProps, DeckState> {
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
                     <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
-                    <AudioControl ref={ref => this.bindAudioPlayerRef = ref} didChangePlayStatus={this.bindDidChangePlayStatus}/>
+                    <AudioControl ref={ref => this.bindAudioControlRef = ref}
+                                  didChangePlayStatus={this.bindDidChangePlayStatus}
+                                  source={this.props.source}/>
                     <Knob initialValue={0.5} title={'freq'}/>
                 </div>
             </React.Fragment>
@@ -50,8 +54,8 @@ class Deck extends React.Component<DeckProps, DeckState> {
     }
 
     didSelectSong(song: SongData) {
-        if (this.bindAudioPlayerRef) {
-            this.bindAudioPlayerRef.setSource(song.file_url);
+        if (this.bindAudioControlRef) {
+            this.bindAudioControlRef.setSource(song.file_url);
         }
     }
 
@@ -62,9 +66,9 @@ class Deck extends React.Component<DeckProps, DeckState> {
     }
 
     didUpdatePlaybackRate(playbackRate: number, isReverse: boolean) {
-        if (!this.bindAudioPlayerRef) return;
-        this.bindAudioPlayerRef.setReverse(isReverse);
-        this.bindAudioPlayerRef.setPlaybackRate(playbackRate);
+        if (!this.bindAudioControlRef) return;
+        this.bindAudioControlRef.setReverse(isReverse);
+        this.bindAudioControlRef.setPlaybackRate(playbackRate);
     }
 }
 
