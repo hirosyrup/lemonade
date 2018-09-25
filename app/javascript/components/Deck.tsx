@@ -3,8 +3,8 @@ import SongList from './SongList'
 import Upload from './Upload'
 import Turntable from "./Turntable";
 import AudioControl from "./AudioControl";
-import Knob from "./Knob";
 import AudioSource from "../model/AudioSource";
+import Grid from '@material-ui/core/Grid';
 
 interface DeckProps {
     uuid: string,
@@ -39,11 +39,17 @@ class Deck extends React.Component<DeckProps, DeckState> {
                 <div className='board-row'>
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
-                    <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
+                    <Grid container className={'deck turntable_div'}>
+                        <Grid item xs={10} className={'deck grid_item_turntable'}>
+                            <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
+                        </Grid>
+                        <Grid item xs={2} className={'deck grid_item_speed_fader'}>
+                            <div></div>
+                        </Grid>
+                    </Grid>
                     <AudioControl ref={ref => this.bindAudioControlRef = ref}
                                   didChangePlayStatus={this.bindDidChangePlayStatus}
                                   source={this.props.source}/>
-                    <Knob initialValue={0.5} title={'freq'}/>
                 </div>
             </React.Fragment>
         );

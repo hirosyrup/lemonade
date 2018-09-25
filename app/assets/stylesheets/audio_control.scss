@@ -1,5 +1,17 @@
 .audio_control {
+  &.grid_item_left {
+    padding-right: 4%;
+  }
+
+  &.grid_item_right {
+    padding-left: 4%;
+  }
+
   &.button {
-    height: 40px;
+    height: 68px;
+  }
+
+  &.button_font {
+    font-size: 44px;
   }
 }

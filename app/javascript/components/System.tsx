@@ -36,17 +36,21 @@ class System extends React.Component<SystemProps, SystemState> {
         return (
             <React.Fragment>
                 <MuiThemeProvider theme={Theme}>
-                    <Grid container>
-                        <Grid item xs={4}>
-                            {this.state.uuid && <Deck uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
+                    <div className={'system root'}>
+                        <Grid container>
+                            <Grid item xs={4}>
+                                {this.state.uuid &&
+                                <Deck uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
+                            </Grid>
+                            <Grid item xs={4}>
+                                {this.state.uuid && <Mixer/>}
+                            </Grid>
+                            <Grid item xs={4}>
+                                {this.state.uuid &&
+                                <Deck uuid={this.state.uuid} source={this.rightAudioGraph.audioSource}/>}
+                            </Grid>
                         </Grid>
-                        <Grid item xs={4}>
-                            {this.state.uuid && <Mixer/>}
-                        </Grid>
-                        <Grid item xs={4}>
-                            {this.state.uuid && <Deck uuid={this.state.uuid} source={this.rightAudioGraph.audioSource}/>}
-                        </Grid>
-                    </Grid>
+                    </div>
                 </MuiThemeProvider>
             </React.Fragment>
         );

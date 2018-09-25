@@ -41,27 +41,27 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         return (
             <React.Fragment>
                 <div>
-                    <Grid container spacing={16}>
-                        <Grid item xs={8}>
+                    <Grid container>
+                        <Grid item xs={6} className={'audio_control grid_item_left'}>
                             <Button variant='outlined'
                                     fullWidth={true}
                                     color={"primary"}
                                     style={{display: this.playButtonDisplay()}}
                                     className='audio_control button'
-                                    onClick={this.bindPlay}><PlayArrow/></Button>
+                                    onClick={this.bindPlay}><PlayArrow className={'audio_control button_font'}/></Button>
                             <Button variant='outlined'
                                     fullWidth={true}
                                     color={"primary"}
                                     className='audio_control button'
                                     style={{display: this.pauseButtonDisplay()}}
-                                    onClick={this.bindPause}><Pause/></Button>
+                                    onClick={this.bindPause}><Pause className={'audio_control button_font'}/></Button>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6} className={'audio_control grid_item_right'}>
                             <Button variant='outlined'
                                     fullWidth={true}
                                     color={"primary"}
                                     className='audio_control button'
-                                    onClick={this.bindStop}><Stop/></Button>
+                                    onClick={this.bindStop}><Stop className={'audio_control button_font'}/></Button>
                         </Grid>
                     </Grid>
                 </div>
@@ -71,7 +71,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
 
     playButtonDisplay() {
         if (!this.playing) {
-            return 'inline-block';
+            return 'inline-flex';
         } else {
             return 'none';
         }
@@ -79,7 +79,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
 
     pauseButtonDisplay() {
         if (this.playing) {
-            return 'inline-block';
+            return 'inline-flex';
         } else {
             return 'none';
         }
