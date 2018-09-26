@@ -1,5 +1,6 @@
 .mix_fader {
-  &.bg {
+  &.bg,
+  &.input-range[type="range"]{
     position: absolute;
     margin: auto;
     top: 0;
@@ -7,7 +8,25 @@
     width: 100%;
   }
 
-  &.slider {
-    width: 100%;
+  &.input-range[type="range"] {
+    -webkit-appearance: none;
+    background-color: #00000000;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+      width: 10px;
+      height: 50px;
+      display: block;
+      background-color: #76d58d;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+    }
   }
 }
