@@ -5,6 +5,8 @@ import Turntable from "./Turntable";
 import AudioControl from "./AudioControl";
 import AudioSource from "../model/AudioSource";
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import MusicNote from '@material-ui/icons/MusicNote';
 
 interface DeckProps {
     uuid: string,
@@ -43,6 +45,11 @@ class Deck extends React.Component<DeckProps, DeckState> {
                     <Grid container className={'deck turntable_div'}>
                         {this.props.isLeftDeck ? this.speedFaderLayout() : this.turntableLayout()}
                         {this.props.isLeftDeck ? this.turntableLayout() : this.speedFaderLayout()}
+                        <Button variant='outlined'
+                                color={"primary"}
+                                className={this.props.isLeftDeck ? 'deck select_button_left' : 'deck select_button_right'}>
+                            <MusicNote className='deck select_button_font'/>
+                        </Button>
                     </Grid>
                     <AudioControl ref={ref => this.bindAudioControlRef = ref}
                                   didChangePlayStatus={this.bindDidChangePlayStatus}
@@ -54,7 +61,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
 
     turntableLayout() {
         return (
-            <Grid item xs={10} className={'deck grid_item_turntable'}>
+            <Grid item xs={10} className={this.props.isLeftDeck ? 'deck grid_item_turntable_left' : 'deck grid_item_turntable_right'}>
                 <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
             </Grid>
         );
@@ -62,7 +69,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
 
     speedFaderLayout() {
         return (
-            <Grid item xs={2} className={'deck grid_item_speed_fader'}>
+            <Grid item xs={2}>
                 <div></div>
             </Grid>
         );
