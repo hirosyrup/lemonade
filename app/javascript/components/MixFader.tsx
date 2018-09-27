@@ -1,6 +1,8 @@
 import * as React from "react"
 
 interface MixFaderProps {
+    leftGainNode: GainNode,
+    rightGainNode: GainNode,
 }
 
 interface MixFaderState {
@@ -9,15 +11,21 @@ interface MixFaderState {
 
 class MixFader extends React.Component<MixFaderProps, MixFaderState> {
     private readonly bindOnSliderChange: (e: any) => void;
+    private readonly faderMax: number;
 
     constructor(props: MixFaderProps) {
         super(props);
 
         this.bindOnSliderChange = this.onSliderChange.bind(this);
+        this.faderMax = 100.0;
 
         this.state = {
             sliderValue: 50.0,
         };
+    }
+
+    componentDidMount() {
+        this.updateVolume(this.state.sliderValue)
     }
 
     render() {
@@ -28,7 +36,7 @@ class MixFader extends React.Component<MixFaderProps, MixFaderState> {
                      draggable={false}/>
                 <input type="range"
                        min="0"
-                       max="100"
+                       max={this.faderMax}
                        value={this.state.sliderValue}
                        className="mix_fader input-range"
                        onChange={this.bindOnSliderChange}/>
@@ -37,7 +45,16 @@ class MixFader extends React.Component<MixFaderProps, MixFaderState> {
     }
 
     onSliderChange(e: React.FormEvent<HTMLInputElement>) {
-        this.setState({sliderValue: parseFloat(e.currentTarget.value)});
+        const value = parseFloat(e.currentTarget.value);
+        this.updateVolume(value);
+        this.setState({sliderValue: value});
+    }
+
+    updateVolume(value: number) {
+        const rightGain = value / this.faderMax;
+        const leftGain = 1.0 - rightGain;
+        this.props.leftGainNode.gain.value = leftGain;
+        this.props.rightGainNode.gain.value = rightGain;
     }
 }
 

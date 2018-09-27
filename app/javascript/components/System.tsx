@@ -43,7 +43,7 @@ class System extends React.Component<SystemProps, SystemState> {
                                 <Deck uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
                             </Grid>
                             <Grid item xs={4}>
-                                {this.state.uuid && <Mixer/>}
+                                {this.state.uuid && <Mixer leftEffectorSet={this.leftAudioGraph.effectorSet} rightEffectorSet={this.rightAudioGraph.effectorSet}/>}
                             </Grid>
                             <Grid item xs={4}>
                                 {this.state.uuid &&

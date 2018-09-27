@@ -1,9 +1,9 @@
-class MixerSet {
+class EffectorSet {
     readonly sourceNode: AudioNode;
     readonly destinationNode: AudioNode;
 
-    private readonly filterNode: BiquadFilterNode;
-    private readonly gainNode: GainNode;
+    readonly filterNode: BiquadFilterNode;
+    readonly gainNode: GainNode;
 
     constructor(context: AudioContext) {
         this.filterNode = context.createBiquadFilter();
@@ -15,4 +15,4 @@ class MixerSet {
     }
 }
 
-export default MixerSet;
+export default EffectorSet;
