@@ -40,14 +40,14 @@ class System extends React.Component<SystemProps, SystemState> {
                         <Grid container>
                             <Grid item xs={4}>
                                 {this.state.uuid &&
-                                <Deck uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
+                                <Deck isLeftDeck={true} uuid={this.state.uuid} source={this.leftAudioGraph.audioSource}/>}
                             </Grid>
                             <Grid item xs={4}>
                                 {this.state.uuid && <Mixer leftEffectorSet={this.leftAudioGraph.effectorSet} rightEffectorSet={this.rightAudioGraph.effectorSet}/>}
                             </Grid>
                             <Grid item xs={4}>
                                 {this.state.uuid &&
-                                <Deck uuid={this.state.uuid} source={this.rightAudioGraph.audioSource}/>}
+                                <Deck isLeftDeck={false} uuid={this.state.uuid} source={this.rightAudioGraph.audioSource}/>}
                             </Grid>
                         </Grid>
                     </div>

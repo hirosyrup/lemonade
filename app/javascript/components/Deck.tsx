@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 interface DeckProps {
     uuid: string,
     source: AudioSource,
+    isLeftDeck: boolean,
 }
 
 interface DeckState {
@@ -40,18 +41,30 @@ class Deck extends React.Component<DeckProps, DeckState> {
                     <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
                     <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
                     <Grid container className={'deck turntable_div'}>
-                        <Grid item xs={10} className={'deck grid_item_turntable'}>
-                            <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
-                        </Grid>
-                        <Grid item xs={2} className={'deck grid_item_speed_fader'}>
-                            <div></div>
-                        </Grid>
+                        {this.props.isLeftDeck ? this.speedFaderLayout() : this.turntableLayout()}
+                        {this.props.isLeftDeck ? this.turntableLayout() : this.speedFaderLayout()}
                     </Grid>
                     <AudioControl ref={ref => this.bindAudioControlRef = ref}
                                   didChangePlayStatus={this.bindDidChangePlayStatus}
                                   source={this.props.source}/>
                 </div>
             </React.Fragment>
+        );
+    }
+
+    turntableLayout() {
+        return (
+            <Grid item xs={10} className={'deck grid_item_turntable'}>
+                <Turntable ref={ref => this.bindTurntableRef = ref} didUpdatePlaybackRate={this.bindDidUpdatePlaybackRate}/>
+            </Grid>
+        );
+    }
+
+    speedFaderLayout() {
+        return (
+            <Grid item xs={2} className={'deck grid_item_speed_fader'}>
+                <div></div>
+            </Grid>
         );
     }
 
