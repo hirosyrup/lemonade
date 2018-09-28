@@ -4,7 +4,9 @@
   }
 
   &.scroll_box {
-    height: 300px;
+    position: absolute;
+    height: 70%;
+    width: 95%;
     overflow: scroll;
     margin-left: 5%;
   }
