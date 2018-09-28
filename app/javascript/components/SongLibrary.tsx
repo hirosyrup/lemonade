@@ -5,6 +5,7 @@ import Slide from '@material-ui/core/Slide';
 import SongList from './SongList'
 import Upload from './Upload'
 import Theme from './../model/theme'
+import Close from '@material-ui/icons/Close';
 
 interface SongLibraryProps {
     didUploaded: () => void,
@@ -54,7 +55,7 @@ class SongLibrary extends React.Component<SongLibraryProps, SongLibraryState> {
                             <Button variant='outlined'
                                     color={"primary"}
                                     className={'sound_library close_button'}
-                                    onClick={this.bindCloseButton}>aaa</Button>
+                                    onClick={this.bindCloseButton}><Close/></Button>
                             <Upload didUploaded={this.bindDidUploaded}
                                     uuid={this.props.uuid}
                                     buttonClass={'sound_library upload_button'}/>

@@ -10,13 +10,18 @@
 
   &.close_button {
     margin-right: auto;
-    margin-left: 5%;
-    margin-top: 5%;
+    margin-left: 3%;
+    margin-top: 3%;
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
   }
 
   &.upload_button {
-    margin-right: 5%;
-    margin-top: 5%;
+    margin-right: 3%;
+    margin-top: 3%;
   }
 
   &.song_list {

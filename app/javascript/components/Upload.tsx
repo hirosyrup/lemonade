@@ -1,6 +1,7 @@
 import * as React from "react"
 import axios from "./AxiosDefault";
 import Button from '@material-ui/core/Button';
+import Add from '@material-ui/icons/Add';
 
 interface UploadProps {
     didUploaded: (() => void) | null,
@@ -65,7 +66,8 @@ class Upload extends React.Component<UploadProps, UploadState> {
                 <div className={this.props.buttonClass}>
                     <Button variant='outlined'
                             color={"primary"}
-                            onClick={this.bindHandleClick}>file select</Button>
+                            className={'upload add_button'}
+                            onClick={this.bindHandleClick}><Add/></Button>
                     <img src='assets/indicator.gif' style={{display: this.state.indicator_display}}/>
                 </div>
             </React.Fragment>
