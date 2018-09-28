@@ -12,7 +12,7 @@ class UploadDemoSong extends React.Component<UploadDemoSongProps, UploadDemoSong
     render() {
         return (
             <React.Fragment>
-                <Upload didUploaded={null} uuid={this.props.uuid}/>
+                <Upload didUploaded={null} uuid={this.props.uuid} buttonClass={''}/>
             </React.Fragment>
         );
     }

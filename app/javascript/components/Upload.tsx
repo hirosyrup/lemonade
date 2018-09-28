@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 interface UploadProps {
     didUploaded: (() => void) | null,
     uuid: string,
+    buttonClass: string,
 }
 
 interface UploadState {
@@ -61,7 +62,7 @@ class Upload extends React.Component<UploadProps, UploadState> {
             <React.Fragment>
                 <input type='file' name={this.inputFileTagName} style={{display: 'none'}}
                        onChange={this.bindHandleChange}/>
-                <div>
+                <div className={this.props.buttonClass}>
                     <Button variant='outlined'
                             color={"primary"}
                             onClick={this.bindHandleClick}>file select</Button>

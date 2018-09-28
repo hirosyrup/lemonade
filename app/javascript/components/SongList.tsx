@@ -47,14 +47,14 @@ class SongList extends React.Component<SongListProps, SongListState> {
         return (
             <React.Fragment>
                 <div className='song_list list_box'>
-                    <Grid container spacing={16}
+                    <Grid container
                           alignItems={'baseline'}>
-                        <Grid item xs={2}>
+                        <Grid item xs={1}>
                             <Button color={"primary"}
                                     style={{visibility: this.backButtonHidden()}}
                                     onClick={this.bindDidClickBack}><KeyboardArrowLeft/></Button>
                         </Grid>
-                        <Grid item xs={10}>
+                        <Grid item xs={11}>
                             <Typography color={"primary"}
                                         align={'center'}>
                                 {this.state.strategy.title()}

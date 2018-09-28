@@ -1,10 +1,31 @@
 .sound_library {
+  &.header {
+    display: inline-flex;
+    width: 100%;
+  }
+
   &.select_button_font {
     font-size: 28px;
+  }
+
+  &.close_button {
+    margin-right: auto;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
+
+  &.upload_button {
+    margin-right: 5%;
+    margin-top: 5%;
   }
 
   &.song_list {
     position: absolute;
     background-color: #000000;
+    width: 32%;
+    z-index: 1;
+    border: solid;
+    border-width: 1px;
+    border-radius: 3%;
   }
 }

@@ -4,6 +4,7 @@ import MusicNote from '@material-ui/icons/MusicNote';
 import Slide from '@material-ui/core/Slide';
 import SongList from './SongList'
 import Upload from './Upload'
+import Theme from './../model/theme'
 
 interface SongLibraryProps {
     didUploaded: () => void,
@@ -20,12 +21,14 @@ class SongLibrary extends React.Component<SongLibraryProps, SongLibraryState> {
     private readonly bindDidUploaded: () => void;
     private readonly bindDidSelectSong: () => void;
     private readonly bindSelectButton: () => void;
+    private readonly bindCloseButton: () => void;
 
     constructor(props: SongLibraryProps) {
         super(props)
         this.bindDidUploaded = this.didUploaded.bind(this);
         this.bindDidSelectSong = this.didSelectSong.bind(this);
         this.bindSelectButton = this.onSelect.bind(this);
+        this.bindCloseButton = this.onClose.bind(this);
 
         this.state = {
             showSelect: false,
@@ -41,9 +44,21 @@ class SongLibrary extends React.Component<SongLibraryProps, SongLibraryState> {
                         onClick={this.bindSelectButton}>
                     <MusicNote className='sound_library select_button_font'/>
                 </Button>
-                <Slide direction="up" in={this.state.showSelect} mountOnEnter unmountOnExit>
+                <Slide direction="up"
+                       in={this.state.showSelect}
+                       mountOnEnter
+                       unmountOnExit
+                       style={{borderColor: Theme.palette.primary.dark}}>
                     <div className='sound_library song_list'>
-                        <Upload didUploaded={this.bindDidUploaded} uuid={this.props.uuid}/>
+                        <div className='sound_library header'>
+                            <Button variant='outlined'
+                                    color={"primary"}
+                                    className={'sound_library close_button'}
+                                    onClick={this.bindCloseButton}>aaa</Button>
+                            <Upload didUploaded={this.bindDidUploaded}
+                                    uuid={this.props.uuid}
+                                    buttonClass={'sound_library upload_button'}/>
+                        </div>
                         <SongList didSelectSong={this.bindDidSelectSong} uuid={this.props.uuid}/>
                     </div>
                 </Slide>
@@ -61,6 +76,10 @@ class SongLibrary extends React.Component<SongLibraryProps, SongLibraryState> {
 
     onSelect() {
         this.setState({showSelect: true});
+    }
+
+    onClose() {
+        this.setState({showSelect: false});
     }
 }
 
