@@ -1,6 +1,8 @@
 import * as React from "react"
 import MixFader from "./MixFader";
 import EffectorSet from "../model/EffectorSet";
+import Grid from '@material-ui/core/Grid';
+import DeckParams from "./DeckParams";
 
 interface MixerProps {
     leftEffectorSet: EffectorSet,
@@ -15,7 +17,15 @@ class Mixer extends React.Component<MixerProps, MixerState> {
         return (
             <React.Fragment>
                 <div className={'mixer root'}>
-                    <div></div>
+                    <Grid container
+                          className={'mixer deck_params_container'}>
+                        <Grid item xs={6}>
+                            <DeckParams/>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <DeckParams/>
+                        </Grid>
+                    </Grid>
                     <div className={'mixer mix_fader'}>
                         <MixFader leftGainNode={this.props.leftEffectorSet.gainNode} rightGainNode={this.props.rightEffectorSet.gainNode}/>
                     </div>
