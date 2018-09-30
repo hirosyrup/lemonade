@@ -27,16 +27,20 @@ class Switch extends React.Component<SwitchProps, SwitchState> {
     render() {
         return (
             <React.Fragment>
-                <div className={this.state.isOn ? 'switch bg_on' :  'switch bg_off'}
-                     style={{backgroundColor: Theme.palette.primary.main}}/>
-                <Button variant='outlined'
-                        color={"primary"}
-                        className={this.state.isOn ? 'switch button_on' : 'switch button_off'}
-                        onClick={this.bindOnClick}>
-                    <Typography className={'switch title'}>
-                        {this.props.title}
-                    </Typography>
-                </Button>
+                <div className={'switch bg_div'}>
+                    <div className={this.state.isOn ? 'switch bg_on' : 'switch bg_off'}
+                         style={{backgroundColor: Theme.palette.primary.main}}/>
+                </div>
+                <div className={'switch button_div'}>
+                    <Button variant='outlined'
+                            color={"primary"}
+                            className={this.state.isOn ? 'switch button_on' : 'switch button_off'}
+                            onClick={this.bindOnClick}>
+                        <Typography className={'switch title'}>
+                            {this.props.title}
+                        </Typography>
+                    </Button>
+                </div>
             </React.Fragment>
         );
     }

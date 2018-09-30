@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 interface KnobProps {
     initialValue: number;
     title: string;
+    didChange: (value: number) => void;
 }
 
 
@@ -38,7 +39,7 @@ class Knob extends React.Component<KnobProps, KnobState> {
         this.lineWidth = 1.3;
         this.startAngle = 125;
         this.endAngle = 415;
-        this.outsideRadius = 40;
+        this.outsideRadius = 36;
         this.insideRadius = 14;
         this.innerRadiusOffset = 4.6;
         this.innerAngleOffset = 9;
@@ -132,8 +133,10 @@ class Knob extends React.Component<KnobProps, KnobState> {
     }
 
     updateCurrentValue(diffPos: number) {
-        const newCurrentValue = this.state.currentValue + diffPos * 0.015;
-        this.setState({currentValue: Math.max(Math.min(newCurrentValue, 1.0), this.minValue)});
+        let newCurrentValue = this.state.currentValue + diffPos * 0.015;
+        newCurrentValue = Math.max(Math.min(newCurrentValue, 1.0), this.minValue)
+        this.setState({currentValue: newCurrentValue});
+        this.props.didChange(newCurrentValue);
     }
 }
 
