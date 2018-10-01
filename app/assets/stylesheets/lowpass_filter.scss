@@ -1,0 +1,14 @@
+.lowpass_filter {
+  &.filter_freq_knob,
+  &.filter_q_knob,
+  &.filter_switch {
+    position: relative;
+    width: 50%;
+    height: 35%;
+    margin: auto;
+  }
+
+  &.filter_switch {
+    max-width: 50px;
+  }
+}
