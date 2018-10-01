@@ -1,6 +1,9 @@
 .knob {
   &.arc_position {
     position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
   }
 
   &.gauge_placeholder {
