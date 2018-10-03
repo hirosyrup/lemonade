@@ -2,24 +2,32 @@
   &.root {
     width: 100%;
     height: 100%;
-    background-color: black;
   }
 
   &.meter_container_left,
   &.meter_container_right {
     position: relative;
-    width: 50%;
+    width: 30%;
     height: 100%;
-    background-color: white;
+    border: solid;
+    border-width: 1px;
   }
 
   &.meter_container_left {
     float: left;
-    left: 4%;
+    left: 30%;
   }
 
   &.meter_container_right {
     float: right;
-    right: 4%;
+    right: 30%;
+  }
+
+  &.meter {
+    width: 52%;
+    height: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 60%;
   }
 }
