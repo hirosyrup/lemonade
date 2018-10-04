@@ -4,6 +4,7 @@ import AudioControl from "./AudioControl";
 import AudioSource from "../model/AudioSource";
 import Grid from '@material-ui/core/Grid';
 import SongLibrary from "./SongLibrary";
+import TempoControl from "./TempoControl";
 
 
 interface DeckProps {
@@ -38,8 +39,8 @@ class Deck extends React.Component<DeckProps, DeckState> {
         return (
             <React.Fragment>
                 <Grid container className={'deck turntable_div'}>
-                    {this.props.isLeftDeck ? this.speedFaderLayout() : this.turntableLayout()}
-                    {this.props.isLeftDeck ? this.turntableLayout() : this.speedFaderLayout()}
+                    {this.props.isLeftDeck ? this.tempoControlLayout() : this.turntableLayout()}
+                    {this.props.isLeftDeck ? this.turntableLayout() : this.tempoControlLayout()}
                     <SongLibrary didUploaded={this.bindDidUploaded}
                                  didSelectSong={this.bindDidSelectSong}
                                  buttonClass={this.props.isLeftDeck ? 'deck select_button_left' : 'deck select_button_right'}
@@ -60,10 +61,10 @@ class Deck extends React.Component<DeckProps, DeckState> {
         );
     }
 
-    speedFaderLayout() {
+    tempoControlLayout() {
         return (
             <Grid item xs={2}>
-                <div></div>
+                <TempoControl/>
             </Grid>
         );
     }

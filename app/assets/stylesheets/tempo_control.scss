@@ -1,0 +1,43 @@
+.tempo_control {
+  &.root {
+    position: relative;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 100%;
+  }
+
+  &.fader_bg,
+  &.input-range[type="range"]{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 100%;
+  }
+
+  &.input-range[type="range"] {
+    -webkit-appearance: none;
+    background-color: #00000000;
+    transform: rotate(-90deg);
+    width: 460%;
+    margin-left: -180%;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      position: relative;
+      width: 10px;
+      height: 50px;
+      display: block;
+      background-color: #76d58d;
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+    }
+  }
+}
