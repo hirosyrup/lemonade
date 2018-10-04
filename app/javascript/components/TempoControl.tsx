@@ -1,4 +1,5 @@
 import * as React from "react"
+import Typography from '@material-ui/core/Typography';
 
 interface TempoControlProps {
 }
@@ -26,15 +27,29 @@ class TempoControl extends React.Component<TempoControlProps, TempoControlState>
         return (
             <React.Fragment>
                 <div className={'tempo_control root'}>
-                    <img src={'assets/tempo_fader_bg.png'}
-                         className={'tempo_control fader_bg'}
-                         draggable={false}/>
-                    <input type="range"
-                           min="0"
-                           max={this.faderMax}
-                           value={this.state.sliderValue}
-                           className="tempo_control input-range"
-                           onChange={this.bindOnSliderChange}/>
+                    <Typography color={"primary"}
+                                align={'center'}
+                                variant={'subheading'}
+                                className={'tempo_control tempo_title'}>
+                        Tempo
+                    </Typography>
+                    <Typography color={"primary"}
+                                align={'center'}
+                                variant={'title'}
+                                className={'tempo_control tempo'}>
+                        ×1.2
+                    </Typography>
+                    <div>
+                        <img src={'assets/tempo_fader_bg.png'}
+                             className={'tempo_control fader_bg'}
+                             draggable={false}/>
+                        <input type="range"
+                               min="0"
+                               max={this.faderMax}
+                               value={this.state.sliderValue}
+                               className="tempo_control input-range"
+                               onChange={this.bindOnSliderChange}/>
+                    </div>
                 </div>
             </React.Fragment>
         );

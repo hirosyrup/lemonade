@@ -1,10 +1,19 @@
 .tempo_control {
   &.root {
     position: relative;
-    top: 0;
+    top: -18%;
     bottom: 0;
     margin: auto;
     height: 100%;
+  }
+
+  &.tempo_title {
+    margin-bottom: 4%;
+  }
+
+  &.tempo {
+    margin-bottom: 10%;
+    font-weight: 700;
   }
 
   &.fader_bg,
