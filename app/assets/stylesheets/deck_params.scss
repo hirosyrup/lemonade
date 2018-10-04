@@ -2,4 +2,13 @@
   &.container {
     height: 100%;
   }
+
+  &.time_title {
+    margin-bottom: 4%;
+  }
+
+  &.time {
+    margin-bottom: 20%;
+    font-weight: 700;
+  }
 }

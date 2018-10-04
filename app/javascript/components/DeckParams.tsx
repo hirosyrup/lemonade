@@ -2,6 +2,7 @@ import * as React from "react"
 import LowpassFilter from "./LowpassFilter";
 import LevelMeter from "./LevelMeter";
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
 interface DeckParamsProps {
     isLeftDeckParams: boolean,
@@ -26,6 +27,18 @@ class DeckParams extends React.Component<DeckParamsProps, DeckParamsState> {
     lowpassFilterLayout() {
         return (
             <Grid item xs={8}>
+                <Typography color={"primary"}
+                            align={'center'}
+                            variant={'headline'}
+                            className={'deck_params time_title'}>
+                    Time
+                </Typography>
+                <Typography color={"primary"}
+                            align={'center'}
+                            variant={'headline'}
+                            className={'deck_params time'}>
+                    01:25
+                </Typography>
                 <LowpassFilter/>
             </Grid>
         );

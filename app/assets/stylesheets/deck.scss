@@ -1,6 +1,7 @@
 .deck {
   &.turntable_div {
     margin-bottom: 7%;
+    margin-top: 10%;
   }
 
   &.grid_item_turntable_left {
@@ -19,14 +20,15 @@
     min-width: 54px;
     min-height: 54px;
     border-radius: 50%;
+    margin-top: -3%;
   }
 
   &.select_button_left {
-    margin-left: 5%;
+    margin-left: 7%;
   }
 
   &.select_button_right {
     right: 0;
-    margin-right: 9.7%;
+    margin-right: 11%;
   }
 }
