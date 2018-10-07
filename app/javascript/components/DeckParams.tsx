@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 interface DeckParamsProps {
     isLeftDeckParams: boolean,
+    didUpdateLowpassSwitch: (isOn: boolean) => void,
 }
 
 interface DeckParamsState {
@@ -39,7 +40,7 @@ class DeckParams extends React.Component<DeckParamsProps, DeckParamsState> {
                             className={'deck_params time'}>
                     01:25
                 </Typography>
-                <LowpassFilter/>
+                <LowpassFilter didUpdateSwitch={this.props.didUpdateLowpassSwitch}/>
             </Grid>
         );
     }
