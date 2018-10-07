@@ -14,6 +14,7 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
     private readonly playbackCoef: number;
     private inAction: boolean;
     private timer: number | NodeJS.Timer | null;
+    private normalPlaybackRate: number;
 
     constructor(props: TurntableProps) {
         super(props);
@@ -23,6 +24,7 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
         this.playbackCoef = 0.4;
         this.inAction = false;
         this.timer = null;
+        this.normalPlaybackRate = 1.0;
         this.state = {
             rotate: 0,
         }
@@ -55,10 +57,14 @@ class Turntable extends React.Component<TurntableProps, TurntableState> {
             clearTimeout(this.timer as number);
         }
         this.timer = setTimeout(() => {
-            this.setState({rotate: this.state.rotate + 2});
+            this.setState({rotate: (this.state.rotate + (2.0 * this.normalPlaybackRate))});
             this.updateRotation();
-            this.props.didUpdatePlaybackRate(1.0, false);
+            this.props.didUpdatePlaybackRate(this.normalPlaybackRate, false);
         }, 20);
+    }
+
+    setNormalPlaybackRate(rate: number) {
+        this.normalPlaybackRate = rate;
     }
 
     onWheel(e: WheelEvent) {

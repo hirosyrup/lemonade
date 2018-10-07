@@ -2,6 +2,7 @@ import * as React from "react"
 import Typography from '@material-ui/core/Typography';
 
 interface TempoControlProps {
+    didUpdateTempoRate: (tempoRate: number) => void,
 }
 
 interface TempoControlState {
@@ -10,16 +11,19 @@ interface TempoControlState {
 
 class TempoControl extends React.Component<TempoControlProps, TempoControlState> {
     private readonly bindOnSliderChange: (e: any) => void;
+    private readonly faderMin: number;
     private readonly faderMax: number;
 
     constructor(props: TempoControlProps) {
         super(props);
 
         this.bindOnSliderChange = this.onSliderChange.bind(this);
-        this.faderMax = 100.0;
+        this.faderMin = 50;
+        this.faderMax = 150.0;
 
+        const initialValue = 100.0;
         this.state = {
-            sliderValue: 50.0,
+            sliderValue: initialValue,
         };
     }
 
@@ -37,14 +41,14 @@ class TempoControl extends React.Component<TempoControlProps, TempoControlState>
                                 align={'center'}
                                 variant={'title'}
                                 className={'tempo_control tempo'}>
-                        ×1.2
+                        ×{this.calcTempoValue(this.state.sliderValue).toFixed(1)}
                     </Typography>
                     <div>
                         <img src={'assets/tempo_fader_bg.png'}
                              className={'tempo_control fader_bg'}
                              draggable={false}/>
                         <input type="range"
-                               min="0"
+                               min={this.faderMin}
                                max={this.faderMax}
                                value={this.state.sliderValue}
                                className="tempo_control input-range"
@@ -58,6 +62,11 @@ class TempoControl extends React.Component<TempoControlProps, TempoControlState>
     onSliderChange(e: React.FormEvent<HTMLInputElement>) {
         const value = parseFloat(e.currentTarget.value);
         this.setState({sliderValue: value});
+        this.props.didUpdateTempoRate(this.calcTempoValue(value));
+    }
+
+    calcTempoValue(value: number) {
+        return value / 100.0;
     }
 }
 

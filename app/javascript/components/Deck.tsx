@@ -22,6 +22,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
     private readonly bindDidUpdatePlaybackRate: (playbackRate: number, isReverse: boolean) => void;
     private readonly bindDidUploaded: () => void;
     private readonly bindDidSelectSong: (fileUrl: string) => void;
+    private readonly bindDidUpdateTempoRate: (tempoRate: number) => void;
     private bindAudioControlRef: AudioControl | null;
     private bindTurntableRef: Turntable | null;
 
@@ -31,6 +32,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
         this.bindDidUpdatePlaybackRate = this.didUpdatePlaybackRate.bind(this);
         this.bindDidUploaded = this.didUploaded.bind(this);
         this.bindDidSelectSong = this.didSelectSong.bind(this);
+        this.bindDidUpdateTempoRate = this.didUpdateTempoRate.bind(this);
         this.bindAudioControlRef = null;
         this.bindTurntableRef = null;
     }
@@ -64,7 +66,7 @@ class Deck extends React.Component<DeckProps, DeckState> {
     tempoControlLayout() {
         return (
             <Grid item xs={2}>
-                <TempoControl/>
+                <TempoControl didUpdateTempoRate={this.bindDidUpdateTempoRate}/>
             </Grid>
         );
     }
@@ -89,6 +91,12 @@ class Deck extends React.Component<DeckProps, DeckState> {
         if (!this.bindAudioControlRef) return;
         this.bindAudioControlRef.setReverse(isReverse);
         this.bindAudioControlRef.setPlaybackRate(playbackRate);
+    }
+
+    didUpdateTempoRate(tempoRate: number) {
+        if (!this.bindTurntableRef) return;
+
+        this.bindTurntableRef.setNormalPlaybackRate(tempoRate);
     }
 }
 
