@@ -3,10 +3,11 @@ import LowpassFilter from "./LowpassFilter";
 import LevelMeter from "./LevelMeter";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Filter from "../model/Filter";
 
 interface DeckParamsProps {
     isLeftDeckParams: boolean,
-    didUpdateLowpassSwitch: (isOn: boolean) => void,
+    filter: Filter,
 }
 
 interface DeckParamsState {
@@ -40,7 +41,7 @@ class DeckParams extends React.Component<DeckParamsProps, DeckParamsState> {
                             className={'deck_params time'}>
                     01:25
                 </Typography>
-                <LowpassFilter didUpdateSwitch={this.props.didUpdateLowpassSwitch}/>
+                <LowpassFilter filter={this.props.filter}/>
             </Grid>
         );
     }

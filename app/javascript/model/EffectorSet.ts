@@ -1,43 +1,21 @@
+import Filter from "./Filter";
+
 class EffectorSet {
     readonly sourceNode: AudioNode;
     readonly destinationNode: AudioNode;
 
-    readonly filterNode: BiquadFilterNode;
+    readonly filter: Filter;
     readonly gainNode: GainNode;
     readonly scriptNode: ScriptProcessorNode;
 
-    private filterEnabled: boolean;
-
     constructor(context: AudioContext) {
-        this.filterNode = context.createBiquadFilter();
         this.gainNode = context.createGain();
         this.scriptNode = context.createScriptProcessor(4096, 1, 1)
         this.scriptNode.onaudioprocess = this.onAudioProcess.bind(this);
+        this.filter = new Filter(context, this.gainNode, this.scriptNode);
 
         this.sourceNode = this.gainNode;
         this.destinationNode = this.scriptNode;
-        this.filterNode.frequency.value = 44100.0;
-        this.gainNode.connect(this.filterNode);
-        this.filterNode.connect(this.scriptNode);
-        this.filterEnabled = true;
-    }
-
-    filterNodeEnable(enable: boolean, frequency: number, q: number) {
-        if (this.filterEnabled === enable) return;
-
-        this.gainNode.disconnect();
-        this.filterNode.disconnect();
-
-        if (enable) {
-            this.gainNode.connect(this.filterNode);
-            this.filterNode.connect(this.scriptNode);
-            this.filterNode.frequency.value = frequency;
-            this.filterNode.Q.value = q;
-        } else {
-            this.gainNode.connect(this.scriptNode);
-        }
-
-        this.filterEnabled = enable;
     }
 
     onAudioProcess(ev: AudioProcessingEvent) {

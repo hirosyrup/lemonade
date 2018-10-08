@@ -20,10 +20,10 @@ class Mixer extends React.Component<MixerProps, MixerState> {
                     <Grid container
                           className={'mixer deck_params_container'}>
                         <Grid item xs={6}>
-                            <DeckParams isLeftDeckParams={true} didUpdateLowpassSwitch={this.didUpdateLeftLowpassSwitch.bind(this)}/>
+                            <DeckParams isLeftDeckParams={true} filter={this.props.leftEffectorSet.filter}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <DeckParams isLeftDeckParams={false} didUpdateLowpassSwitch={this.didUpdateRightLowpassSwitch.bind(this)}/>
+                            <DeckParams isLeftDeckParams={false} filter={this.props.rightEffectorSet.filter}/>
                         </Grid>
                     </Grid>
                     <div className={'mixer mix_fader'}>
@@ -32,14 +32,6 @@ class Mixer extends React.Component<MixerProps, MixerState> {
                 </div>
             </React.Fragment>
         );
-    }
-
-    didUpdateLeftLowpassSwitch(isOn: boolean) {
-        this.props.leftEffectorSet.filterNodeEnable(isOn, 1000.0, 10.0);
-    }
-
-    didUpdateRightLowpassSwitch(isOn: boolean) {
-        this.props.rightEffectorSet.filterNodeEnable(isOn, 1000.0, 10.0);
     }
 }
 

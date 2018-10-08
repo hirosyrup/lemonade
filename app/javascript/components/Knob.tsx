@@ -59,6 +59,10 @@ class Knob extends React.Component<KnobProps, KnobState> {
         }
     }
 
+    componentDidMount() {
+        this.props.didChange(this.state.currentValue);
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -134,9 +138,12 @@ class Knob extends React.Component<KnobProps, KnobState> {
 
     updateCurrentValue(diffPos: number) {
         let newCurrentValue = this.state.currentValue + diffPos * 0.015;
-        newCurrentValue = Math.max(Math.min(newCurrentValue, 1.0), this.minValue)
-        this.setState({currentValue: newCurrentValue});
-        this.props.didChange(newCurrentValue);
+        newCurrentValue = Math.max(Math.min(newCurrentValue, 1.0), this.minValue);
+        const notifyValue = newCurrentValue === this.minValue ? 0 : newCurrentValue;
+        if (this.state.currentValue !== newCurrentValue) {
+            this.setState({currentValue: newCurrentValue});
+            this.props.didChange(notifyValue);
+        }
     }
 }
 
