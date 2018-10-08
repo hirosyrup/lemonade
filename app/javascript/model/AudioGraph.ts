@@ -11,6 +11,10 @@ class AudioGraph {
         this.context = new AudioContext();
         this.effectorSet = new EffectorSet(this.context);
         this.audioSource = new AudioSource(this.context, this.effectorSet.sourceNode);
+        this.audioSource.didUpdateIsReverse = this.effectorSet.playTime.bindDidUpdateIsReverse;
+        this.audioSource.didUpdateAudioBuffer = this.effectorSet.playTime.bindDidUpdateAudioBuffer;
+        this.audioSource.didUpdatePlayStatus = this.effectorSet.playTime.bindDidUpdatePlayStatus;
+        this.audioSource.didUpdatePlaybackRate = this.effectorSet.playTime.bindDidUpdatePlaybackRate;
         this.effectorSet.destinationNode.connect(this.context.destination);
     }
 }

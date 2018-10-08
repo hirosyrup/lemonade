@@ -1,4 +1,5 @@
 import Filter from "./Filter";
+import PlayTime from "./PlayTime";
 
 class EffectorSet {
     readonly sourceNode: AudioNode;
@@ -6,28 +7,16 @@ class EffectorSet {
 
     readonly filter: Filter;
     readonly gainNode: GainNode;
-    readonly scriptNode: ScriptProcessorNode;
+    readonly playTime: PlayTime;
 
     constructor(context: AudioContext) {
         this.gainNode = context.createGain();
-        this.scriptNode = context.createScriptProcessor(4096, 1, 1)
-        this.scriptNode.onaudioprocess = this.onAudioProcess.bind(this);
-        this.filter = new Filter(context, this.gainNode, this.scriptNode);
 
-        this.sourceNode = this.gainNode;
-        this.destinationNode = this.scriptNode;
-    }
+        this.playTime = new PlayTime(context);
+        this.filter = new Filter(context, this.playTime.selfNode, this.gainNode);
 
-    onAudioProcess(ev: AudioProcessingEvent) {
-        let inputBuffer = ev.inputBuffer;
-        let outputBuffer = ev.outputBuffer;
-        for (let i = 0; i < outputBuffer.numberOfChannels; i++) {
-            let inputData = inputBuffer.getChannelData(i);
-            let outputData = outputBuffer.getChannelData(i);
-            for (let j = 0; j < inputBuffer.length; j++) {
-                outputData[j] = inputData[j];
-            }
-        }
+        this.sourceNode = this.playTime.selfNode;
+        this.destinationNode = this.gainNode;
     }
 }
 

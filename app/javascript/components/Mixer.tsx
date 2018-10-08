@@ -20,10 +20,10 @@ class Mixer extends React.Component<MixerProps, MixerState> {
                     <Grid container
                           className={'mixer deck_params_container'}>
                         <Grid item xs={6}>
-                            <DeckParams isLeftDeckParams={true} filter={this.props.leftEffectorSet.filter}/>
+                            <DeckParams isLeftDeckParams={true} filter={this.props.leftEffectorSet.filter} playTime={this.props.leftEffectorSet.playTime}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <DeckParams isLeftDeckParams={false} filter={this.props.rightEffectorSet.filter}/>
+                            <DeckParams isLeftDeckParams={false} filter={this.props.rightEffectorSet.filter} playTime={this.props.rightEffectorSet.playTime}/>
                         </Grid>
                     </Grid>
                     <div className={'mixer mix_fader'}>

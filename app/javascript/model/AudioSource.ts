@@ -1,7 +1,13 @@
+import AudioSourceStatus from "./AudioSourceStatus";
+
 class AudioSource {
     playEnded: (() => void) | null;
+    didUpdateIsReverse: ((isReverse: boolean) => void) | null;
+    didUpdateAudioBuffer: ((buffer: AudioBuffer) => void) | null;
+    didUpdatePlayStatus: ((status: AudioSourceStatus) => void) | null;
+    didUpdatePlaybackRate: ((playbackRate: number) => void) | null;
     private source: AudioBufferSourceNode | null;
-    private isStarted: boolean;
+    private playStatus: AudioSourceStatus;
     private isReverse: boolean;
     private context: AudioContext;
     private audioBuffer: AudioBuffer | null;
@@ -13,7 +19,7 @@ class AudioSource {
     constructor(context: AudioContext, destinationNode: AudioNode) {
         this.playEnded = null;
         this.source = null;
-        this.isStarted = false;
+        this.playStatus = AudioSourceStatus.stop;
         this.context = context;
         this.audioBuffer = null;
         this.reverseAudioBuffer = null;
@@ -38,6 +44,7 @@ class AudioSource {
 
     pause() {
         return new Promise((resolve) => {
+            this.updatePlayStatus(AudioSourceStatus.pause);
             this.context.suspend()
                 .then(() => {
                     resolve();
@@ -52,8 +59,9 @@ class AudioSource {
             this.source.buffer = this.audioBuffer;
             this.previousContextTime = this.context.currentTime;
             this.source.start();
-            this.isStarted = true;
         }
+
+        this.updatePlayStatus(AudioSourceStatus.play);
     }
 
     stop() {
@@ -61,7 +69,7 @@ class AudioSource {
         if (!this.source.buffer) return;
 
         this.resetSourceConnect();
-        this.isStarted = false;
+        this.updatePlayStatus(AudioSourceStatus.stop);
         this.isReverse = false;
         this.currentPlayTime = 0.0;
     }
@@ -72,6 +80,9 @@ class AudioSource {
         if (this.isReverse === isReverse) return;
 
         this.isReverse = isReverse;
+        if (this.didUpdateIsReverse) {
+            this.didUpdateIsReverse(isReverse);
+        }
 
         this.resetSourceConnect();
 
@@ -90,6 +101,9 @@ class AudioSource {
         if (!this.source) return;
 
         this.source.playbackRate.value = playbackRate;
+        if (this.didUpdatePlaybackRate) {
+            this.didUpdatePlaybackRate(playbackRate);
+        }
     }
 
     setSource(url: string) {
@@ -133,7 +147,7 @@ class AudioSource {
     }
 
     updateTime() {
-        if (!this.isStarted) return;
+        if (this.playStatus !== AudioSourceStatus.play) return;
 
         const current = this.context.currentTime;
         const diff = current - this.previousContextTime;
@@ -175,6 +189,19 @@ class AudioSource {
         for (let i = 0; i < buffer.numberOfChannels; ++i) {
             this.reverseAudioBuffer.copyToChannel(buffer.getChannelData(i), i, 0);
             Array.prototype.reverse.call( this.reverseAudioBuffer.getChannelData(i) );
+        }
+
+        if (this.didUpdateAudioBuffer) {
+            this.didUpdateAudioBuffer(buffer);
+        }
+    }
+
+    updatePlayStatus(status: AudioSourceStatus) {
+        if (this.playStatus === status) return;
+
+        this.playStatus = status;
+        if (this.didUpdatePlayStatus) {
+            this.didUpdatePlayStatus(status);
         }
     }
 

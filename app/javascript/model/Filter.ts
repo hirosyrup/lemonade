@@ -1,6 +1,7 @@
 class Filter {
     readonly sourceNode: AudioNode;
     readonly destinationNode: AudioNode;
+    readonly selfNode: AudioNode;
 
     private readonly filterNode: BiquadFilterNode;
 
@@ -10,6 +11,7 @@ class Filter {
         this.sourceNode = sourceNode;
         this.destinationNode = destinationNode;
         this.filterNode = context.createBiquadFilter();
+        this.selfNode = this.filterNode;
         this.filterNodeEnable(false);
     }
 
