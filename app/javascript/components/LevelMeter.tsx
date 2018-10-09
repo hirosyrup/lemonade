@@ -1,8 +1,10 @@
 import * as React from "react"
 import Theme from './../model/theme'
+import Level from "../model/Level";
 
 interface LevelMeterProps {
     containerClassName: string,
+    level: Level,
 }
 
 interface LevelMeterState {
@@ -13,8 +15,10 @@ class LevelMeter extends React.Component<LevelMeterProps, LevelMeterState> {
     constructor(props: LevelMeterProps) {
         super(props);
 
+        this.props.level.didUpdateLevel = this.didUpdateLevel.bind(this);
+
         this.state = {
-            level: 6,
+            level: -70,
         }
     }
 
@@ -24,18 +28,18 @@ class LevelMeter extends React.Component<LevelMeterProps, LevelMeterState> {
                 <div className={'level_meter root'}>
                     <div className={this.props.containerClassName}
                          style={{borderColor: Theme.palette.primary.dark}}>
-                        {this.meterLayout(11)}
-                        {this.meterLayout(10)}
-                        {this.meterLayout(9)}
-                        {this.meterLayout(8)}
-                        {this.meterLayout(7)}
-                        {this.meterLayout(6)}
-                        {this.meterLayout(5)}
-                        {this.meterLayout(4)}
-                        {this.meterLayout(3)}
-                        {this.meterLayout(2)}
-                        {this.meterLayout(1)}
                         {this.meterLayout(0)}
+                        {this.meterLayout(-3)}
+                        {this.meterLayout(-6)}
+                        {this.meterLayout(-9)}
+                        {this.meterLayout(-12)}
+                        {this.meterLayout(-15)}
+                        {this.meterLayout(-18)}
+                        {this.meterLayout(-30)}
+                        {this.meterLayout(-40)}
+                        {this.meterLayout(-50)}
+                        {this.meterLayout(-60)}
+                        {this.meterLayout(-70)}
                     </div>
                 </div>
             </React.Fragment>
@@ -50,6 +54,12 @@ class LevelMeter extends React.Component<LevelMeterProps, LevelMeterState> {
                      backgroundColor: Theme.palette.primary.main
                  }}/>
         );
+    }
+
+    didUpdateLevel(level: number) {
+        if (this.state.level === level) return;
+        console.log(level);
+        this.setState({level: level});
     }
 }
 

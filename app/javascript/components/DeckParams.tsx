@@ -5,11 +5,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Filter from "../model/Filter";
 import PlayTime from "../model/PlayTime";
+import Level from "../model/Level";
 
 interface DeckParamsProps {
     isLeftDeckParams: boolean,
     filter: Filter,
     playTime: PlayTime,
+    level: Level,
 }
 
 interface DeckParamsState {
@@ -62,7 +64,7 @@ class DeckParams extends React.Component<DeckParamsProps, DeckParamsState> {
     levelMeterLayout() {
         return (
             <Grid item xs={4}>
-                <LevelMeter containerClassName={this.props.isLeftDeckParams ? 'level_meter meter_container_left' : 'level_meter meter_container_right'}/>
+                <LevelMeter containerClassName={this.props.isLeftDeckParams ? 'level_meter meter_container_left' : 'level_meter meter_container_right'} level={this.props.level}/>
             </Grid>
         );
     }
