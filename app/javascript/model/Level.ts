@@ -51,9 +51,7 @@ class Level {
         for (let i = 0; i < outputBuffer.numberOfChannels; i = (i + 1) | 0) {
             let inputData = inputBuffer.getChannelData(i);
             let outputData = outputBuffer.getChannelData(i);
-            for (let j = 0; j < inputBuffer.length; j = (j + 1) | 0) {
-                outputData[j] = inputData[j];
-            }
+            outputData.set(inputData);
         }
     }
 
