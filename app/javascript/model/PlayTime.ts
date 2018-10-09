@@ -23,7 +23,7 @@ class PlayTime {
         this.bindDidUpdateAudioBuffer = this.didUpdateAudioBuffer.bind(this);
         this.bindDidUpdatePlayStatus = this.didUpdatePlayStatus.bind(this);
         this.bindDidUpdatePlaybackRate = this.didUpdatePlaybackRate.bind(this);
-        this.scriptNode = context.createScriptProcessor(4096, 2, 2)
+        this.scriptNode = context.createScriptProcessor(512, 2, 2)
         this.scriptNode.onaudioprocess = this.onAudioProcess.bind(this);
         this.selfNode = this.scriptNode;
 

@@ -9,7 +9,7 @@ class Level {
     readonly bindDidUpdatePlayStatus: ((status: AudioSourceStatus) => void);
 
     constructor(context: AudioContext) {
-        this.scriptNode = context.createScriptProcessor(4096, 2, 2);
+        this.scriptNode = context.createScriptProcessor(512, 2, 2);
         this.scriptNode.onaudioprocess = this.onAudioProcess.bind(this);
         this.selfNode = this.scriptNode;
         this.minRms = -1000.0;

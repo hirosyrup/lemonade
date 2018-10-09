@@ -122,7 +122,7 @@ class AudioControl extends React.Component<AudioControlProps, AudioControlState>
         // If suspend immediately, an audio buffer queue will remain.
         setTimeout(() => {
             this.pause();
-        }, 400);
+        }, 50);
     }
 
     setReverse(isReverse: boolean) {
