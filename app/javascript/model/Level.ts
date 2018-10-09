@@ -54,7 +54,7 @@ class Level {
     }
 
     didUpdatePlayStatus(status: AudioSourceStatus) {
-        if (status !== AudioSourceStatus.play) {
+        if (status === AudioSourceStatus.pause) {
             this.notifyUpdateLevel(this.minRms);
         }
     }
