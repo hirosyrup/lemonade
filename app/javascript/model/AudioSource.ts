@@ -192,7 +192,7 @@ class AudioSource {
         this.audioBuffer = buffer
         this.reverseAudioBuffer = this.context.createBuffer(buffer.numberOfChannels, buffer.length, buffer.sampleRate);
         for (let i = 0; i < buffer.numberOfChannels; ++i) {
-            this.reverseAudioBuffer.copyToChannel(buffer.getChannelData(i), i, 0);
+            this.reverseAudioBuffer.getChannelData(i).set(buffer.getChannelData(i));
             Array.prototype.reverse.call( this.reverseAudioBuffer.getChannelData(i) );
         }
 
