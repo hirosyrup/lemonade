@@ -4,7 +4,7 @@ class AudioSource {
     playEnded: (() => void) | null;
     didUpdateIsReverse: ((isReverse: boolean) => void) | null;
     didUpdateAudioBuffer: ((buffer: AudioBuffer) => void) | null;
-    didUpdatePlayStatus: ((status: AudioSourceStatus) => void) | null;
+    didUpdatePlayStatusList: Array<(status: AudioSourceStatus) => void>;
     didUpdatePlaybackRate: ((playbackRate: number) => void) | null;
     private source: AudioBufferSourceNode | null;
     private playStatus: AudioSourceStatus;
@@ -17,6 +17,7 @@ class AudioSource {
     private readonly destinationNode: AudioNode;
 
     constructor(context: AudioContext, destinationNode: AudioNode) {
+        this.didUpdatePlayStatusList = [];
         this.playEnded = null;
         this.source = null;
         this.playStatus = AudioSourceStatus.stop;
@@ -26,6 +27,10 @@ class AudioSource {
         this.currentPlayTime = 0.0;
         this.destinationNode = destinationNode
         this.setupNode();
+    }
+
+    addUpdatePlayStatusObserver(observer: (status: AudioSourceStatus) => void) {
+        this.didUpdatePlayStatusList.push(observer);
     }
 
     resume() {
@@ -200,8 +205,8 @@ class AudioSource {
         if (this.playStatus === status) return;
 
         this.playStatus = status;
-        if (this.didUpdatePlayStatus) {
-            this.didUpdatePlayStatus(status);
+        for(const i in this.didUpdatePlayStatusList) {
+            this.didUpdatePlayStatusList[i](status);
         }
     }
 

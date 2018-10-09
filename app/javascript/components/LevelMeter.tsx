@@ -58,7 +58,6 @@ class LevelMeter extends React.Component<LevelMeterProps, LevelMeterState> {
 
     didUpdateLevel(level: number) {
         if (this.state.level === level) return;
-        console.log(level);
         this.setState({level: level});
     }
 }
