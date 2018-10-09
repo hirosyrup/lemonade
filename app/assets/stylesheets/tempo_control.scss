@@ -1,3 +1,13 @@
+@mixin thumb {
+  cursor: pointer;
+  position: relative;
+  width: 10px;
+  height: 50px;
+  display: block;
+  background-color: #76d58d;
+  border-radius: 4px;
+}
+
 .tempo_control {
   &.root {
     position: relative;
@@ -38,15 +48,18 @@
     }
 
     &::-webkit-slider-thumb {
+      @include thumb;
       -webkit-appearance: none;
-      cursor: pointer;
-      position: relative;
-      width: 10px;
-      height: 50px;
-      display: block;
-      background-color: #76d58d;
-      border-radius: 4px;
       -webkit-border-radius: 4px;
+    }
+
+    &::-moz-range-track {
+      opacity: 0;
+    }
+
+    &::-moz-range-thumb {
+      @include thumb;
+      border: none;
     }
   }
 }
